@@ -1,7 +1,19 @@
-# LethalCompanyTemplate
+# BetterShotgun
 
-[![](https://img.shields.io/badge/YourThunderstoreTeam-Template-blue?logo=thunderstore)](https://thunderstore.io/c/lethal-company/p/YourThunderstoreTeam/Template/)
+<details>
+<summary><strong>English</strong></summary>
 
-Template to create Lethal Company plugins.
+Should support custom moons (I haven't checked)
 
-If you want to create your own plugin with this template, check the [wiki](https://github.com/Distractic/LethalCompanyTemplate/wiki).
+The cost and rarity of items can be configured in the config ```Hypick.BetterShotgun.cfg```
+
+</details>
+
+<details>
+<summary><strong>Русский</strong></summary>
+
+Должен поддерживать кастомные луны (я не проверял)
+
+Стоимость и редкость предметов можно настроить в конфиге ```Hypick.BetterShotgun.cfg```
+
+</details>
