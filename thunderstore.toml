@@ -7,7 +7,7 @@ repository = "https://thunderstore.io"
 [package]
 namespace = "Hypick"
 name = "BetterShotgun"
-description = "You can now buy a shotgun and ammo from the store or find them on the moons (Fully configurable)"
+description = "[v49] You can now buy a shotgun and ammo from the store or find them on the moons (Fully configurable)"
 websiteUrl = "https://github.com/Hypick122/BetterShotgun"
 containsNsfwContent = false
 

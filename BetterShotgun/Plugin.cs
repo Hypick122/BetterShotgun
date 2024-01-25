@@ -50,19 +50,21 @@ public class Plugin : BaseUnityPlugin
 		{
 			isLoaded = true;
 
-            Shotgun.itemName = "Shotgun";
-            Shotgun.minValue = 50;
-            Shotgun.maxValue = 100;
-            
-            ShotgunShell.itemName = "Shells";
-            ShotgunShell.minValue = 25;
-            ShotgunShell.maxValue = 50;
+            SetItemValues(Shotgun, "Shotgun", Config.ShotgunMinValue, Config.ShotgunMaxValue);
+            SetItemValues(ShotgunShell, "Shell", Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue);
 
             if (Config.ShotgunPrice != -1) Items.RegisterShopItem(Shotgun, Config.ShotgunPrice);
-            if (Config.ShellPrice != -1) Items.RegisterShopItem(ShotgunShell, Config.ShellPrice);
+            if (Config.ShotgunShellPrice != -1) Items.RegisterShopItem(ShotgunShell, Config.ShotgunShellPrice);
 
-            if (Config.ShotgunRarity != 0) Items.RegisterScrap(Shotgun, Config.ShotgunRarity, Levels.LevelTypes.All);
-            if (Config.ShellRarity != 0) Items.RegisterScrap(ShotgunShell, Config.ShellRarity, Levels.LevelTypes.All);
+            if (Config.ShotgunRarity != -1) Items.RegisterScrap(Shotgun, Config.ShotgunRarity, Levels.LevelTypes.All);
+            if (Config.ShotgunShellRarity != -1) Items.RegisterScrap(ShotgunShell, Config.ShotgunShellRarity, Levels.LevelTypes.All);
 		}
 	}
+
+    private void SetItemValues(Item item, string name, int min, int max)
+    {
+        item.itemName = name;
+        item.minValue = min;
+        item.maxValue = min < max ? max : max * 2;
+    }
 }
