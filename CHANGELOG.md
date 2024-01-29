@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/Hypick122/BetterShotgun/compare/v1.0.2...v1.0.3) (2024-01-29)
+
+
+### Miscellaneous Chores
+
+* Update config ([4aa8e96](https://github.com/Hypick122/BetterShotgun/commit/4aa8e963dad6d76a60ccbbb1d0e1ab2d1b9d6a3e))
+
 ## [1.0.2](https://github.com/Hypick122/BetterShotgun/compare/v1.0.1...v1.0.2) (2024-01-29)
 
 
