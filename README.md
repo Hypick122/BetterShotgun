@@ -15,22 +15,22 @@ To disable the parameter you need to set the value -1
 
 Available settings in the config:
 - Shotgun
-   - Price (default - 700)
+   - Price (default: 700)
      - Cost of a shotgun in the store
-   - MinValueScrap (default - 40)
+   - MinValueScrap (default: 40)
      - Minimum cost of scrap metal
-   - MaxValueScrap (default - 70)
+   - MaxValueScrap (default: 70)
      - Maximum value of scrap metal
-   - Rarity (default - -1)
+   - Rarity (default: -1)
      - Rarity of shotgun spawn on moons (higher = more often)
 - Shotgun cartridges
-   - Price (default - 50)
+   - Price (default: 50)
      - Cost of ammo in the store
-   - MinValueScrap (default - 15)
+   - MinValueScrap (default: 15)
      - Minimum cost of scrap metal
-   - MaxValueScrap (default - 25)
+   - MaxValueScrap (default: 25)
      - Maximum value of scrap metal
-   - Rarity (default - 2)
+   - Rarity (default: 2)
      - Rarity of the appearance of cartridges on moons (higher = more often)
 
 </details>
@@ -50,27 +50,32 @@ Available settings in the config:
 
 Доступные настройки в конфиге:
 - Дробовик
-  - Price (дефолт - 700)
+  - Price (дефолт: 700)
     - Стоимость дробовика в магазине
-  - MinValueScrap (дефолт - 40)
+  - MinValueScrap (дефолт: 40)
     - Минимальная стоимость металлолома
-  - MaxValueScrap (дефолт - 70)
+  - MaxValueScrap (дефолт: 70)
     - Максимальная стоимость металлолома
-  - Rarity (дефолт - -1)
+  - Rarity (дефолт: -1)
     - Редкость появления дробовика на лунах (выше = чаще)
 - Патроны для дробовика
-  - Price (дефолт - 50)
+  - Price (дефолт: 50)
     - Стоимость патронов в магазине
-  - MinValueScrap (дефолт - 15)
+  - MinValueScrap (дефолт: 15)
     - Минимальная стоимость металлолома
-  - MaxValueScrap (дефолт - 25)
+  - MaxValueScrap (дефолт: 25)
     - Максимальная стоимость металлолома
-  - Rarity (дефолт - 2)
+  - Rarity (дефолт: 2)
     - Редкость появления патронов на лунах (выше = чаще)
 
 </details>
 
 ## Changelog
+
+## [1.0.2] - 29.01.2024 | Current version
+
+- LethalLib 0.13.2 -> 0.14.1
+- Minor changes to the code
 
 ## [1.0.1] - 25.01.2024 | Current version
 

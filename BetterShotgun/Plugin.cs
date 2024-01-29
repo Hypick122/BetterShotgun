@@ -50,21 +50,20 @@ public class Plugin : BaseUnityPlugin
 		{
 			isLoaded = true;
 
-            SetItemValues(Shotgun, "Shotgun", Config.ShotgunMinValue, Config.ShotgunMaxValue);
-            SetItemValues(ShotgunShell, "Shell", Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue);
-
-            if (Config.ShotgunPrice != -1) Items.RegisterShopItem(Shotgun, Config.ShotgunPrice);
-            if (Config.ShotgunShellPrice != -1) Items.RegisterShopItem(ShotgunShell, Config.ShotgunShellPrice);
-
-            if (Config.ShotgunRarity != -1) Items.RegisterScrap(Shotgun, Config.ShotgunRarity, Levels.LevelTypes.All);
-            if (Config.ShotgunShellRarity != -1) Items.RegisterScrap(ShotgunShell, Config.ShotgunShellRarity, Levels.LevelTypes.All);
+            RegisterItem(Shotgun, "Shotgun", Config.ShotgunMinValue, Config.ShotgunMaxValue, Config.ShotgunPrice, Config.ShotgunRarity);
+            RegisterItem(ShotgunShell, "Shell", Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue, Config.ShotgunShellPrice, Config.ShotgunShellRarity);
 		}
 	}
 
-    private void SetItemValues(Item item, string name, int min, int max)
+    private void RegisterItem(Item item, string name, int min, int max, int price, int rarity)
     {
         item.itemName = name;
-        item.minValue = min;
-        item.maxValue = min < max ? max : max * 2;
+        item.minValue = Mathf.Max(min, 1);
+        item.maxValue = Mathf.Max(max, item.minValue);
+
+        if (price != -1) Items.RegisterShopItem(item, price);
+        if (rarity != -1) Items.RegisterScrap(item, rarity, Levels.LevelTypes.All);
+
+        Log.LogInfo($"Loaded {item}");
     }
 }
