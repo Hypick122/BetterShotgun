@@ -72,12 +72,17 @@ Available settings in the config:
 
 ## Changelog
 
-## [1.0.2] - 29.01.2024 | Current version
+## [1.0.3] - 29.01.2024 | Current version
+
+- LethalLib 0.14.1 -> 0.14.2
+- Descriptions in the config have been corrected
+
+## [1.0.2] - 29.01.2024
 
 - LethalLib 0.13.2 -> 0.14.1
 - Minor changes to the code
 
-## [1.0.1] - 25.01.2024 | Current version
+## [1.0.1] - 25.01.2024
 
 - The default parameters in the config have been slightly changed
 - Added parameters for the cost of scrap metal on the moons in the config
