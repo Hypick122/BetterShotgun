@@ -3,76 +3,110 @@
 <details>
 <summary><strong>English</strong></summary>
 
-Should support custom moons (I haven't checked)
+Should support custom moons (I haven't tested)
 
 ## Config
 
 All available mod settings can be found in the config ```Hypick.BetterShotgun.cfg```
-
-! If the Rarity parameter is enabled, the item will appear in the gift
-
-To disable the parameter you need to set the value -1
+! If the Rarity parameter is enabled, the item will appear in gifts
 
 Available settings in the config:
+
 - Shotgun
-   - Price (default: 700)
-     - Cost of a shotgun in the store
-   - MinValueScrap (default: 40)
-     - Minimum cost of scrap metal
-   - MaxValueScrap (default: 70)
-     - Maximum value of scrap metal
-   - Rarity (default: -1)
-     - Rarity of shotgun spawn on moons (higher = more often)
-- Shotgun cartridges
-   - Price (default: 50)
-     - Cost of ammo in the store
-   - MinValueScrap (default: 15)
-     - Minimum cost of scrap metal
-   - MaxValueScrap (default: 25)
-     - Maximum value of scrap metal
-   - Rarity (default: 2)
-     - Rarity of the appearance of cartridges on moons (higher = more often)
+  - Price (default = 700)
+    - Cost of a shotgun in the store
+  - (Not working) MinValueScrap (default = 40)
+    - Minimum cost of a shotgun found on the moon
+  - (Not working) MaxValueScrap (default = 70)
+    - Maximum cost of a shotgun found on the moon
+  - Rarity (default = -1)
+    - Rarity of shotgun spawn on moons (higher = more often)
+  - MisfireOff (default = true, vanilla = false)
+    - Disables cutoff
+  - InfinityAmmo (default = false)
+    - Endless ammo
+  - ShowAmmoCount (default = true)
+    - The number of cartridges in the shotgun will be displayed at the top right
+  - [BETA] AmmoCheckAnimation (default = true)
+    - Adds ammo check animation to the reload button
+  - ReloadKeybind (default = false, vanilla = E)
+    - Changes the reload key to the one you set
+- Shell
+  - Price (default: 50)
+    - Cost of a cartridge in the store
+  - (Not working) MinValueScrap (default = 15)
+    - Minimum cost of a cartridge found on the moon
+  - (Not working) MaxValueScrap (default = 25)
+    - Maximum cost of a cartridge found on the moon
+  - Rarity (default = 2)
+    - Rarity of the appearance of cartridges on moons (higher = more often)
 
 </details>
 
 <details>
 <summary><strong>Русский</strong></summary>
 
-Должен поддерживать кастомные луны (я не проверял)
+Должен поддерживать кастомные луны (я не тестировал)
 
 ## Конфиг
 
 Все доступные настройки мода модно найти в конфиге ```Hypick.BetterShotgun.cfg```
-
-! Если параметр Rarity включен, то предмет будет появляться еще в подарке
-
-Чтобы отключить параметр нужно задать значение -1
+! Если параметр Rarity включен, то предмет будет появляться еще в подарах
 
 Доступные настройки в конфиге:
-- Дробовик
-  - Price (дефолт: 700)
+
+- Shotgun
+  - Price (по умолчанию = 700)
     - Стоимость дробовика в магазине
-  - MinValueScrap (дефолт: 40)
-    - Минимальная стоимость металлолома
-  - MaxValueScrap (дефолт: 70)
-    - Максимальная стоимость металлолома
-  - Rarity (дефолт: -1)
+  - (Не работает) MinValueScrap (по умолчанию = 40)
+    - Минимальная стоимость найденного на луне дробовика
+  - (Не работает) MaxValueScrap (по умолчанию = 70)
+    - Максимальная стоимость найденного на луне дробовика
+  - Rarity (по умолчанию = -1)
     - Редкость появления дробовика на лунах (выше = чаще)
-- Патроны для дробовика
-  - Price (дефолт: 50)
-    - Стоимость патронов в магазине
-  - MinValueScrap (дефолт: 15)
-    - Минимальная стоимость металлолома
-  - MaxValueScrap (дефолт: 25)
-    - Максимальная стоимость металлолома
-  - Rarity (дефолт: 2)
+  - MisfireOff (по умолчанию = true, ванилла = false)
+    - Отключает отсечку
+  - InfinityAmmo (по умолчанию = false)
+    - Бесконечные патроны
+  - ShowAmmoCount (по умолчанию = true)
+    - Справа сверху будет отображаться кол-во патронов в дробовике
+  - [BETA] AmmoCheckAnimation (по умолчанию = true)
+    - Добавляет анимацию проверки патронов на кнопку перезарядки
+  - ReloadKeybind (по умолчанию = false, ванилла = E)
+    - Меняет клавишу перезарядки на установленную вами
+- Shell
+  - Price (по умолчанию: 50)
+    - Стоимость патрона в магазине
+  - (Не работает) MinValueScrap (по умолчанию = 15)
+    - Минимальная стоимость найденного на луне патрона
+  - (Не работает) MaxValueScrap (по умолчанию = 25)
+    - Максимальная стоимость найденного на луне патрона
+  - Rarity (по умолчанию = 2)
     - Редкость появления патронов на лунах (выше = чаще)
 
 </details>
 
+## Known issues
+
+- MinValueScrap and MaxValueScrap do not work
+
 ## Changelog
 
-## [1.0.3] - 29.01.2024 | Current version
+## [1.1.0] - 12.02.2024 | Current version
+
+- Added 5 new features:
+  - MisfireOff (default: true, vanilla: false)
+    - Disables cutoff
+  - InfinityAmmo (default: false)
+    - Endless ammo
+  - ShowAmmoCount (default: true)
+    - The number of rounds will be displayed on the top right
+  - [BETA] AmmoCheckAnimation
+    - Enables animation of checking cartridges on the reload button
+  - ReloadKeybind
+    - Changes the reload key to the one you set
+
+## [1.0.3] - 29.01.2024
 
 - LethalLib 0.14.1 -> 0.14.2
 - Descriptions in the config have been corrected

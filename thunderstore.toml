@@ -7,7 +7,7 @@ repository = "https://thunderstore.io"
 [package]
 namespace = "Hypick"
 name = "BetterShotgun"
-description = "[v49] You can now buy a shotgun and ammo from the store or find them on the moons (Fully configurable)"
+description = "[v49] Expands the functionality of the shotgun and includes several new features: endless ammo, sale in the store, viewing cartridges in the shotgun and more (Fully configurable)"
 websiteUrl = "https://github.com/Hypick122/BetterShotgun"
 containsNsfwContent = false
 
@@ -39,4 +39,4 @@ communities = ["lethal-company"]
 [publish.categories]
 # The categories are available at https://thunderstore.io near of the search bar
 # https://thunderstore.io/api/experimental/community/lethal-company/category/
-lethal-company = ["bepinex", "mods", "serverside", "equipment", "items"]
+lethal-company = ["bepinex", "mods", "serverside", "equipment", "items", "misc"]

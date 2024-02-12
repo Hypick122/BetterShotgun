@@ -24,10 +24,9 @@ public class Plugin : BaseUnityPlugin
     public Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
 	public Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
 
-    public Plugin()
-    {
-        Instance = this;
-    }
+    private bool isLoaded;
+
+    public Plugin() => Instance = this;
 
     private void Awake()
     {
@@ -42,8 +41,6 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} is fully loaded!");
     }
 
-    private bool isLoaded;
-    
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		if (!isLoaded && scene.name == "MainMenu")
