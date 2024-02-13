@@ -11,10 +11,11 @@ internal class ShotgunItemPatch
     [HarmonyPrefix]
     static void Update(ShotgunItem __instance)
     {
-        // if (!Plugin.Config.ShotgunMisfire && !__instance.safetyOn && __instance.misfireTimer <= 0f && !StartOfRound.Instance.inShipPhase)
-        //     __instance.misfireTimer = float.MaxValue;
         if (Plugin.Config.MisfireOff && !__instance.safetyOn)
+        {
+            __instance.hasHitGroundWithSafetyOff = true;
             __instance.misfireTimer = float.MaxValue;
+        }
     }
 
     [HarmonyPatch("ItemActivate")]
@@ -58,7 +59,6 @@ internal class ShotgunItemPatch
             HUDManager.Instance.ChangeControlTip(2, newToolTips + $": {keybindReload}");
     }
 
-
     [HarmonyPatch("ReloadGunEffectsClientRpc")]
     [HarmonyPatch("ShootGun")]
     [HarmonyPostfix]
@@ -74,6 +74,7 @@ internal class ShotgunItemPatch
     {
         if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
             return false;
+
         return true;
     }
 
@@ -81,7 +82,7 @@ internal class ShotgunItemPatch
     [HarmonyPrefix]
     static bool StartReloadGun(ShotgunItem __instance)
     {
-        if (!__instance.ReloadedGun())
+        if (Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun())
         {
             if (__instance.gunCoroutine != null)
                 __instance.StopCoroutine(__instance.gunCoroutine);
@@ -90,7 +91,7 @@ internal class ShotgunItemPatch
             return false;
         }
 
-        if (__instance.ReloadedGun() && Plugin.Config.InfiniteAmmo)
+        if (Plugin.Config.InfiniteAmmo && __instance.ReloadedGun())
             return false;
 
         return true;

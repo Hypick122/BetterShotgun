@@ -8,6 +8,7 @@ Should support custom moons (I haven't tested)
 ## Config
 
 All available mod settings can be found in the config ```Hypick.BetterShotgun.cfg```
+
 ! If the Rarity parameter is enabled, the item will appear in gifts
 
 Available settings in the config:
@@ -22,8 +23,8 @@ Available settings in the config:
   - Rarity (default = -1)
     - Rarity of shotgun spawn on moons (higher = more often)
   - MisfireOff (default = true, vanilla = false)
-    - Disables cutoff
-  - InfinityAmmo (default = false)
+    - Disables misfire
+  - InfiniteAmmo (default = false)
     - Endless ammo
   - ShowAmmoCount (default = true)
     - The number of cartridges in the shotgun will be displayed at the top right
@@ -50,7 +51,8 @@ Available settings in the config:
 
 ## Конфиг
 
-Все доступные настройки мода модно найти в конфиге ```Hypick.BetterShotgun.cfg```
+Все доступные настройки мода можно найти в конфиге ```Hypick.BetterShotgun.cfg```
+
 ! Если параметр Rarity включен, то предмет будет появляться еще в подарах
 
 Доступные настройки в конфиге:
@@ -65,8 +67,8 @@ Available settings in the config:
   - Rarity (по умолчанию = -1)
     - Редкость появления дробовика на лунах (выше = чаще)
   - MisfireOff (по умолчанию = true, ванилла = false)
-    - Отключает отсечку
-  - InfinityAmmo (по умолчанию = false)
+    - Отключает осечку
+  - InfiniteAmmo (по умолчанию = false)
     - Бесконечные патроны
   - ShowAmmoCount (по умолчанию = true)
     - Справа сверху будет отображаться кол-во патронов в дробовике
@@ -92,15 +94,20 @@ Available settings in the config:
 
 ## Changelog
 
-## [1.1.0] - 12.02.2024 | Current version
+## [1.1.1] - 13.02.2024 | Current version
+
+- Fixed an issue where AmmoCheckAnimation still worked even if it was disabled in the config ([#7](https://github.com/Hypick122/BetterShotgun/issues/7))
+- Fixed an issue where the shotgun would misfire when falling to the ground with MisfireOff enabled in the config ([#8](https://github.com/Hypick122/BetterShotgun/issues/8))
+
+## [1.1.0] - 12.02.2024
 
 - Added 5 new features:
   - MisfireOff (default: true, vanilla: false)
-    - Disables cutoff
-  - InfinityAmmo (default: false)
+    - Disables misfire
+  - InfiniteAmmo (default: false)
     - Endless ammo
   - ShowAmmoCount (default: true)
-    - The number of rounds will be displayed on the top right
+    - The number of cartridges in the shotgun will be displayed at the top right
   - [BETA] AmmoCheckAnimation
     - Enables animation of checking cartridges on the reload button
   - ReloadKeybind

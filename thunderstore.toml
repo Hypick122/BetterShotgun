@@ -7,7 +7,7 @@ repository = "https://thunderstore.io"
 [package]
 namespace = "Hypick"
 name = "BetterShotgun"
-description = "[v49] Expands the functionality of the shotgun and includes several new features: endless ammo, sale in the store, viewing cartridges in the shotgun and more (Fully configurable)"
+description = "[v49] Improves the vanilla shotgun and its ammo, adding features such as infinite ammo, viewing the number of loaded ammo, selling in the store, spawning on moons and in gifts (Fully configurable)"
 websiteUrl = "https://github.com/Hypick122/BetterShotgun"
 containsNsfwContent = false
 

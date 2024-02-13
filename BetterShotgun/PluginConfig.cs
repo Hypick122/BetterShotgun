@@ -31,7 +31,7 @@ public class PluginConfig
         ShotgunMinValue = cfg.Bind<int>(Categories.Shotgun, "MinValueScrap", 40, "Minimum shotgun value (must be > 0)").Value;
         ShotgunMaxValue = cfg.Bind<int>(Categories.Shotgun, "MaxValueScrap", 70, "Maximum shotgun value (must be > min value)").Value;
         ShotgunRarity = cfg.Bind<int>(Categories.Shotgun, "Rarity", -1, "Rarity of shotgun spawn on moons (higher = more common). A shotgun will also appear in gifts. (-1 = disable)").Value;
-        MisfireOff = cfg.Bind<bool>(Categories.Shotgun, "MisfireOff", true, "If set to true, disables shotgun cutoff (vanilla = false)").Value;
+        MisfireOff = cfg.Bind<bool>(Categories.Shotgun, nameof(MisfireOff), true, "If set to true, disables shotgun misfire (vanilla = false)").Value;
         InfiniteAmmo = cfg.Bind<bool>(Categories.Shotgun, nameof(InfiniteAmmo), false, "If set to true, the shotgun will have infinite ammo").Value;
         ReloadKeybind = cfg.Bind<string>(Categories.Shotgun, nameof(ReloadKeybind), "R", "Changes the reload key to the one you specify (vanilla = E)").Value;
         ShowAmmoCount = cfg.Bind<bool>(Categories.Shotgun, nameof(ShowAmmoCount), true, "If set to true, the number of cartridges in the shotgun will be displayed in the upper right text").Value;
