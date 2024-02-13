@@ -19,6 +19,9 @@ public class PluginConfig
     public string ReloadKeybind { get; private set; }
     public bool ShowAmmoCount { get; private set; }
     public bool AmmoCheckAnimation { get; private set; }
+    public bool ReloadNoLimit { get; private set; }
+    // public bool DisableFriendlyFire { get; private set; }
+    public bool SkipReloadAnimation { get; private set; }
 
     public int ShotgunShellPrice { get; private set; }
     public int ShotgunShellMinValue { get; private set; }
@@ -35,7 +38,10 @@ public class PluginConfig
         InfiniteAmmo = cfg.Bind<bool>(Categories.Shotgun, nameof(InfiniteAmmo), false, "If set to true, the shotgun will have infinite ammo").Value;
         ReloadKeybind = cfg.Bind<string>(Categories.Shotgun, nameof(ReloadKeybind), "R", "Changes the reload key to the one you specify (vanilla = E)").Value;
         ShowAmmoCount = cfg.Bind<bool>(Categories.Shotgun, nameof(ShowAmmoCount), true, "If set to true, the number of cartridges in the shotgun will be displayed in the upper right text").Value;
-        AmmoCheckAnimation = cfg.Bind<bool>(Categories.Shotgun, nameof(AmmoCheckAnimation), true, "Adds an ammo check animation to the reload button").Value;
+        AmmoCheckAnimation = cfg.Bind<bool>(Categories.Shotgun, nameof(AmmoCheckAnimation), true, "Enables animation of checking cartridges in a shotgun on the reload key (Does not work with InfiniteAmmo = true)").Value;
+        ReloadNoLimit = cfg.Bind<bool>(Categories.Shotgun, nameof(ReloadNoLimit), false, "The shotgun can be loaded with an infinite number of cartridges").Value;
+        // DisableFriendlyFire = cfg.Bind<bool>(Categories.Shotgun, nameof(DisableFriendlyFire), true, "").Value;
+        SkipReloadAnimation = cfg.Bind<bool>(Categories.Shotgun, nameof(SkipReloadAnimation), false, "Skips shotgun reload animation").Value;
 
         ShotgunShellPrice = cfg.Bind<int>(Categories.Shell, "Price", 50, "Cost of a shotgun shell in a store. (-1 = remove from sale)").Value;
         ShotgunShellMinValue = cfg.Bind<int>(Categories.Shell, "MinValueScrap", 15, "Minimum shotgun shell value (must be > 0)").Value;

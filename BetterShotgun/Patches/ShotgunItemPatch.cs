@@ -30,39 +30,20 @@ internal class ShotgunItemPatch
     [HarmonyPrefix]
     static void SetControlTipsForItem(ShotgunItem __instance)
     {
-        var newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
-        var keybindReload = $"[{Plugin.Config.ReloadKeybind}]";
-
-        if (Plugin.Config.ShowAmmoCount)
-        {
-            string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{__instance.shellsLoaded}/2";
-            __instance.itemProperties.toolTips[1] = newToolTips + $" ({ammoInfo}): {keybindReload}";
-        }
-        else
-            __instance.itemProperties.toolTips[1] = newToolTips + $": {keybindReload}";
+        __instance.itemProperties.toolTips[1] = GetCustomTooltip(__instance);
     }
 
     [HarmonyPatch("SetSafetyControlTip")]
     [HarmonyPrefix]
     static void SetSafetyControlTip(ShotgunItem __instance)
     {
-        string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
-        string keybindReload = $"[{Plugin.Config.ReloadKeybind}]";
-
-        if (__instance.IsOwner && Plugin.Config.ShowAmmoCount)
-        {
-            string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{__instance.shellsLoaded}/2";
-            newToolTips += $" ({ammoInfo}): {keybindReload}";
-            HUDManager.Instance.ChangeControlTip(2, newToolTips);
-        }
-        else
-            HUDManager.Instance.ChangeControlTip(2, newToolTips + $": {keybindReload}");
+        HUDManager.Instance.ChangeControlTip(2, GetCustomTooltip(__instance));
     }
 
     [HarmonyPatch("ReloadGunEffectsClientRpc")]
     [HarmonyPatch("ShootGun")]
     [HarmonyPostfix]
-    static void UpdateControlTips(ShotgunItem __instance)
+    static void UpdateControlTipsForItem(ShotgunItem __instance)
     {
         if (Plugin.Config.ShowAmmoCount)
             __instance.SetSafetyControlTip();
@@ -70,19 +51,48 @@ internal class ShotgunItemPatch
 
     [HarmonyPatch("ItemInteractLeftRight")]
     [HarmonyPrefix]
-    static bool ItemInteractLeftRight(bool right)
+    static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
     {
         if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
             return false;
 
+        if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
+        {
+            __instance.StartReloadGun();
+            return false;
+        }
+
         return true;
+    }
+
+    [HarmonyPatch("ShootGun")]
+    [HarmonyPrefix]
+    static void ShootGunPrefix(ShotgunItem __instance, out int __state)
+    {
+        __state = __instance.shellsLoaded;
+    }
+
+    [HarmonyPatch("ShootGun")]
+    [HarmonyPostfix]
+    static void ShootGunPostfix(ShotgunItem __instance, ref int __state)
+    {
+        __instance.shellsLoaded = Mathf.Max(0, __state - 1);
+        __instance.SetSafetyControlTip();
+    }
+
+    [HarmonyPatch("reloadGunAnimation")]
+    [HarmonyPrefix]
+    static bool ReloadGunAnimation(ShotgunItem __instance, ref IEnumerator __result)
+    {
+        __result = ReloadGunAnimationCustom(__instance);
+        return false;
     }
 
     [HarmonyPatch("StartReloadGun")]
     [HarmonyPrefix]
     static bool StartReloadGun(ShotgunItem __instance)
     {
-        if (Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun())
+        if ((Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun()) || (Plugin.Config.AmmoCheckAnimation && !Plugin.Config.ReloadNoLimit && !Plugin.Config.InfiniteAmmo && __instance.shellsLoaded >= 2))
         {
             if (__instance.gunCoroutine != null)
                 __instance.StopCoroutine(__instance.gunCoroutine);
@@ -97,6 +107,22 @@ internal class ShotgunItemPatch
         return true;
     }
 
+    private static string GetCustomTooltip(ShotgunItem item)
+    {
+        string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
+        
+        if (Plugin.Config.ShowAmmoCount)
+        {
+            string maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
+            string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
+            return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind}]";
+        }
+        else
+        {
+            return $"{newToolTips}: [{Plugin.Config.ReloadKeybind}]";
+        }
+    }
+
     private static IEnumerator CheckAmmoAnimation(ShotgunItem __instance)
     {
         __instance.isReloading = true;
@@ -106,16 +132,101 @@ internal class ShotgunItemPatch
 
         yield return new WaitForSeconds(0.3f);
 
-        __instance.gunAudio.PlayOneShot(__instance.gunReloadSFX);
+        // __instance.gunAudio.PlayOneShot(__instance.gunReloadSFX);
         __instance.gunAnimator.SetBool("Reloading", true);
         __instance.ReloadGunEffectsServerRpc();
 
         yield return new WaitForSeconds(2.35f);
 
-        __instance.gunAudio.PlayOneShot(__instance.gunReloadFinishSFX);
+        // __instance.gunAudio.PlayOneShot(__instance.gunReloadFinishSFX);
         __instance.gunAnimator.SetBool("Reloading", false);
         __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun", false);
         __instance.isReloading = false;
         __instance.ReloadGunEffectsServerRpc(start: false);
+    }
+
+    private static IEnumerator ReloadGunAnimationCustom(ShotgunItem __instance)
+    {
+        if (!Plugin.Config.SkipReloadAnimation)
+        {
+            __instance.isReloading = true;
+            if (__instance.shellsLoaded <= 0)
+            {
+                __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun", true);
+                __instance.shotgunShellLeft.enabled = false;
+                __instance.shotgunShellRight.enabled = false;
+            }
+            else
+            {
+                __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun2", true);
+                __instance.shotgunShellRight.enabled = false;
+            }
+
+            yield return new WaitForSeconds(0.3f);
+
+            __instance.gunAudio.PlayOneShot(__instance.gunReloadSFX);
+            __instance.gunAnimator.SetBool("Reloading", true);
+            __instance.ReloadGunEffectsServerRpc(true);
+
+            yield return new WaitForSeconds(0.95f);
+
+            __instance.shotgunShellInHand.enabled = true;
+            __instance.shotgunShellInHandTransform.SetParent(__instance.playerHeldBy.leftHandItemTarget);
+            __instance.shotgunShellInHandTransform.localPosition = new Vector3(-0.0555f, 0.1469f, -0.0655f);
+            __instance.shotgunShellInHandTransform.localEulerAngles = new Vector3(-1.956f, 143.856f, -16.427f);
+
+            yield return new WaitForSeconds(0.95f);
+
+            __instance.playerHeldBy.DestroyItemInSlotAndSync(__instance.ammoSlotToUse);
+            __instance.ammoSlotToUse = -1;
+
+            if (Plugin.Config.ReloadNoLimit)
+                __instance.shellsLoaded++;
+            else
+                __instance.shellsLoaded = Mathf.Clamp(__instance.shellsLoaded + 1, 0, 2);
+
+            __instance.shotgunShellLeft.enabled = true;
+            if (__instance.shellsLoaded >= 2)
+                __instance.shotgunShellRight.enabled = true;
+            __instance.shotgunShellInHand.enabled = false;
+            __instance.shotgunShellInHandTransform.SetParent(__instance.transform);
+
+            yield return new WaitForSeconds(0.45f);
+
+            __instance.gunAudio.PlayOneShot(__instance.gunReloadFinishSFX);
+            __instance.gunAnimator.SetBool("Reloading", false);
+            __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun", false);
+            __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun2", false);
+            __instance.isReloading = false;
+            __instance.ReloadGunEffectsServerRpc(start: false);
+        }
+        else
+        {
+            Plugin.Log.LogInfo("Skip reload animation");
+            __instance.isReloading = true;
+
+            __instance.playerHeldBy.DestroyItemInSlotAndSync(__instance.ammoSlotToUse);
+            __instance.ammoSlotToUse = -1;
+
+            if (Plugin.Config.ReloadNoLimit)
+                __instance.shellsLoaded++;
+            else
+                __instance.shellsLoaded = Mathf.Clamp(__instance.shellsLoaded + 1, 0, 2);
+
+            __instance.shotgunShellLeft.enabled = true;
+            if (__instance.shellsLoaded >= 2)
+                __instance.shotgunShellRight.enabled = true;
+            __instance.shotgunShellInHand.enabled = false;
+            __instance.shotgunShellInHandTransform.SetParent(__instance.transform);
+
+            // __instance.gunAudio.PlayOneShot(__instance.gunReloadFinishSFX);
+            // __instance.gunAnimator.SetBool("Reloading", false);
+            // __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun", false);
+            // __instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun2", false);
+            __instance.isReloading = false;
+            // __instance.ReloadGunEffectsServerRpc(start: false);
+
+            __instance.SetSafetyControlTip();
+        }
     }
 }

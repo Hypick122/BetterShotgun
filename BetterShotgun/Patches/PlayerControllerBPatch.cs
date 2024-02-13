@@ -13,9 +13,14 @@ internal class PlayerControllerBPatch
     {
         if (Plugin.Config.ReloadKeybind.ToLower() != "e" && UnityInput.Current.GetKeyDown(Plugin.Config.ReloadKeybind.ToLower()))
         {
-            ShotgunItem shotgun = __instance.ItemSlots[__instance.currentItemSlot] as ShotgunItem;
-            if (shotgun != null && !shotgun.isReloading && shotgun.shellsLoaded < 2)
-                shotgun.StartReloadGun();
+            GrabbableObject currentItem = __instance.ItemSlots[__instance.currentItemSlot];
+
+            if (currentItem != null && currentItem is ShotgunItem)
+            {
+                ShotgunItem item = (ShotgunItem)currentItem;
+                if (!item.isReloading)
+                    item.StartReloadGun();
+            }
         }
     }
 }

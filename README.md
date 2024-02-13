@@ -32,6 +32,10 @@ Available settings in the config:
     - Adds ammo check animation to the reload button
   - ReloadKeybind (default = false, vanilla = E)
     - Changes the reload key to the one you set
+  - ReloadNoLimit (default = false)
+    - Allows you to endlessly reload your shotgun
+  - SkipReloadAnimation (default = false)
+    - Skips reload animation
 - Shell
   - Price (default: 50)
     - Cost of a cartridge in the store
@@ -76,6 +80,10 @@ Available settings in the config:
     - Добавляет анимацию проверки патронов на кнопку перезарядки
   - ReloadKeybind (по умолчанию = false, ванилла = E)
     - Меняет клавишу перезарядки на установленную вами
+  - ReloadNoLimit (по умолчанию = false)
+    - Позволяет бесконечно перезаряжать дробовик
+  - SkipReloadAnimation (по умолчанию = false)
+    - Пропускает анимацию перезарядки
 - Shell
   - Price (по умолчанию: 50)
     - Стоимость патрона в магазине
@@ -94,7 +102,17 @@ Available settings in the config:
 
 ## Changelog
 
-## [1.1.1] - 13.02.2024 | Current version
+## [1.2.0] - 14.02.2024 | Current version
+
+- Finally fixed AmmoCheckAnimation (most likely :)
+- Removed the shotgun loading sound when viewing ammo
+- Added two new features:
+  - ReloadNoLimit
+    - Allows you to endlessly reload your shotgun
+  - SkipReloadAnimation
+    - Skips reload animation
+
+## [1.1.1] - 13.02.2024
 
 - Fixed an issue where AmmoCheckAnimation still worked even if it was disabled in the config ([#7](https://github.com/Hypick122/BetterShotgun/issues/7))
 - Fixed an issue where the shotgun would misfire when falling to the ground with MisfireOff enabled in the config ([#8](https://github.com/Hypick122/BetterShotgun/issues/8))
