@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Hypick122/BetterShotgun/compare/v1.1.0...v1.1.1) (2024-02-13)
+
+
+### Bug Fixes
+
+* fix two problems ([d78ef12](https://github.com/Hypick122/BetterShotgun/commit/d78ef1249c18c95a8d66f1a4cb75b5acd51f388a))
+
 ## [1.1.0](https://github.com/Hypick122/BetterShotgun/compare/v1.0.3...v1.1.0) (2024-02-12)
 
 
