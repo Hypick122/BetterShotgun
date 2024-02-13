@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/Hypick122/BetterShotgun/compare/v1.1.1...v1.2.0) (2024-02-13)
+
+
+### Features
+
+* add 2 new features, fix AmmoCheckAnimation ([7b010c1](https://github.com/Hypick122/BetterShotgun/commit/7b010c18ae31d2b0c177c9bca170c6c4e6a27467))
+
 ## [1.1.1](https://github.com/Hypick122/BetterShotgun/compare/v1.1.0...v1.1.1) (2024-02-13)
 
 
