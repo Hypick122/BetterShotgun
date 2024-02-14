@@ -67,6 +67,7 @@ internal class ShotgunItemPatch
 
     [HarmonyPatch("ShootGun")]
     [HarmonyPrefix]
+    [HarmonyPriority(Priority.High)]
     static void ShootGunPrefix(ShotgunItem __instance, out int __state)
     {
         __state = __instance.shellsLoaded;
