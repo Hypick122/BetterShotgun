@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/Hypick122/BetterShotgun/compare/v1.2.0...v1.3.0) (2024-02-15)
+
+
+### Features
+
+* add new params: weight, discount ([d2f0939](https://github.com/Hypick122/BetterShotgun/commit/d2f0939758142ddcb00e9f2c676a5631fedddac8))
+
 ## [1.2.0](https://github.com/Hypick122/BetterShotgun/compare/v1.1.1...v1.2.0) (2024-02-13)
 
 
