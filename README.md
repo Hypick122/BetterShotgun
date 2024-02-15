@@ -14,21 +14,26 @@ All available mod settings can be found in the config ```Hypick.BetterShotgun.cf
 Available settings in the config:
 
 - Shotgun
-  - Price (default = 700)
+  - Price (default = 700, disable = -1)
     - Cost of a shotgun in the store
-  - (Not working) MinValueScrap (default = 40)
-    - Minimum cost of a shotgun found on the moon
-  - (Not working) MaxValueScrap (default = 70)
-    - Maximum cost of a shotgun found on the moon
-  - Rarity (default = -1)
+  - MinValueScrap (default = 40) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
+    - Minimum scrap cost
+  - MaxValueScrap (default = 70) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
+    - Maximum scrap cost
+  - Rarity (default = -1, disable = -1)
     - Rarity of shotgun spawn on moons (higher = more often)
+  - **[BETA]** Weight
+    - Scrap weight
+  - MaxDiscount (default = 80, vanilla = 80)
+    - Maximum discount in the store
+- Shotgun Tweaks
   - MisfireOff (default = true, vanilla = false)
     - Disables misfire
   - InfiniteAmmo (default = false)
     - Endless ammo
   - ShowAmmoCount (default = true)
     - The number of cartridges in the shotgun will be displayed at the top right
-  - [BETA] AmmoCheckAnimation (default = true)
+  - **[BETA]** AmmoCheckAnimation (default = true)
     - Adds ammo check animation to the reload button
   - ReloadKeybind (default = false, vanilla = E)
     - Changes the reload key to the one you set
@@ -37,14 +42,16 @@ Available settings in the config:
   - SkipReloadAnimation (default = false)
     - Skips reload animation
 - Shell
-  - Price (default: 50)
+  - Price (default: 50, disable = -1)
     - Cost of a cartridge in the store
-  - (Not working) MinValueScrap (default = 15)
-    - Minimum cost of a cartridge found on the moon
-  - (Not working) MaxValueScrap (default = 25)
-    - Maximum cost of a cartridge found on the moon
-  - Rarity (default = 2)
+  - MinValueScrap (default = 15) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
+    - Minimum scrap cost
+  - MaxValueScrap (default = 25) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
+    - Maximum scrap cost
+  - Rarity (default = 2, disable = -1)
     - Rarity of the appearance of cartridges on moons (higher = more often)
+  - MaxDiscount (default = 80, vanilla = 80)
+    - Maximum discount in the store
 
 </details>
 
@@ -62,21 +69,26 @@ Available settings in the config:
 Доступные настройки в конфиге:
 
 - Shotgun
-  - Price (по умолчанию = 700)
+  - Price (по умолчанию = 700, отключить = -1)
     - Стоимость дробовика в магазине
-  - (Не работает) MinValueScrap (по умолчанию = 40)
-    - Минимальная стоимость найденного на луне дробовика
-  - (Не работает) MaxValueScrap (по умолчанию = 70)
-    - Максимальная стоимость найденного на луне дробовика
-  - Rarity (по умолчанию = -1)
+  - MinValueScrap (по умолчанию = 40) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
+    - Минимальная стоимость лома
+  - MaxValueScrap (по умолчанию = 70) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
+    - Максимальная стоимость лома
+  - Rarity (по умолчанию = -1, отключить = -1)
     - Редкость появления дробовика на лунах (выше = чаще)
+  - **[BETA]** Weight (по умолчанию = 16)
+    - Вес лома
+  - MaxDiscount (по умолчанию = 80, ванилла = 80)
+    - Максимальная скидка в магазине
+- Shotgun Tweaks
   - MisfireOff (по умолчанию = true, ванилла = false)
     - Отключает осечку
   - InfiniteAmmo (по умолчанию = false)
     - Бесконечные патроны
   - ShowAmmoCount (по умолчанию = true)
     - Справа сверху будет отображаться кол-во патронов в дробовике
-  - [BETA] AmmoCheckAnimation (по умолчанию = true)
+  - **[BETA]** AmmoCheckAnimation (по умолчанию = true)
     - Добавляет анимацию проверки патронов на кнопку перезарядки
   - ReloadKeybind (по умолчанию = false, ванилла = E)
     - Меняет клавишу перезарядки на установленную вами
@@ -85,26 +97,43 @@ Available settings in the config:
   - SkipReloadAnimation (по умолчанию = false)
     - Пропускает анимацию перезарядки
 - Shell
-  - Price (по умолчанию: 50)
+  - Price (по умолчанию: 50, отключить = -1)
     - Стоимость патрона в магазине
-  - (Не работает) MinValueScrap (по умолчанию = 15)
+  - MinValueScrap (по умолчанию = 15) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
     - Минимальная стоимость найденного на луне патрона
-  - (Не работает) MaxValueScrap (по умолчанию = 25)
+  - MaxValueScrap (по умолчанию = 25) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
     - Максимальная стоимость найденного на луне патрона
-  - Rarity (по умолчанию = 2)
+  - Rarity (по умолчанию = 2, отключить = -1)
     - Редкость появления патронов на лунах (выше = чаще)
+  - MaxDiscount (default = 80, vanilla = 80)
+    - Maximum discount in the store
 
 </details>
 
-## Known issues
+## Contributing
 
-- MinValueScrap and MaxValueScrap do not work
+If you have an idea for a mod or find a problem, you can open an [issue](https://github.com/Hypick122/BetterShotgun/issues) or [pull request](https://github.com/Hypick122/BetterShotgun/pulls) on Github.
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/Hypick122/BetterShotgun?tab=MIT-1-ov-file).
 
 ## Changelog
 
-## [1.2.0] - 14.02.2024 | Current version
+## [1.3.0] - 15.02.2024 | Current version
 
-- Finally fixed AmmoCheckAnimation (most likely :)
+- Changed the priority of ShootGunPrefix (by [@JuanCalle1606](https://github.com/JuanCalle1606) in [#13](https://github.com/Hypick122/BetterShotgun/pull/13)), thereby making it more compatible with mods like HexiBetterShotgun
+- Changed the calculation of MinValueScrap and MaxValueScrap (now using the formula value * 100 / 40)
+- The structure of the configuration file has been slightly changed
+- Added two new parameters:
+  - **[BETA]** Weight (default = 16) (shotgun only)
+    - Scrap weight
+  - MaxDiscount (default = 80, vanilla = 80)
+    - Maximum discount in the store
+
+## [1.2.0] - 14.02.2024
+
+- Finally fixed AmmoCheckAnimation (most likely :))
 - Removed the shotgun loading sound when viewing ammo
 - Added two new features:
   - ReloadNoLimit
@@ -120,13 +149,13 @@ Available settings in the config:
 ## [1.1.0] - 12.02.2024
 
 - Added 5 new features:
-  - MisfireOff (default: true, vanilla: false)
+  - MisfireOff (default = true, vanilla = false)
     - Disables misfire
-  - InfiniteAmmo (default: false)
+  - InfiniteAmmo (default = false)
     - Endless ammo
-  - ShowAmmoCount (default: true)
+  - ShowAmmoCount (default = true)
     - The number of cartridges in the shotgun will be displayed at the top right
-  - [BETA] AmmoCheckAnimation
+  - **[BETA]** AmmoCheckAnimation
     - Enables animation of checking cartridges on the reload button
   - ReloadKeybind
     - Changes the reload key to the one you set

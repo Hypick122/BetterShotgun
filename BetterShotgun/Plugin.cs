@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
 using BepInEx.Logging;
@@ -23,8 +22,6 @@ public class Plugin : BaseUnityPlugin
 	private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
 	public List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>().Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
-
-	// public List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>().ToList();
 	public Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
 	public Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
 
@@ -54,16 +51,17 @@ public class Plugin : BaseUnityPlugin
 		{
 			isLoaded = true;
 
-			RegisterItem(Shotgun, "Shotgun", Config.ShotgunMinValue, Config.ShotgunMaxValue, Config.ShotgunPrice, Config.ShotgunRarity);
-			RegisterItem(ShotgunShell, "Shell", Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue, Config.ShotgunShellPrice, Config.ShotgunShellRarity);
+			RegisterItem(Shotgun, Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue, Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
+			RegisterItem(ShotgunShell, Config.ShotgunShellMaxDiscount, Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue, 0, Config.ShotgunShellPrice, Config.ShotgunShellRarity);
 		}
 	}
 
-	private void RegisterItem(Item item, string name, int min, int max, int price, int rarity)
+	private void RegisterItem(Item item, int maxDiscount, int minValue, int maxValue, int weight, int price, int rarity)
 	{
-		item.itemName = name;
-		item.minValue = Mathf.Max(min, 1);
-		item.maxValue = Mathf.Max(max, item.minValue);
+		item.highestSalePercentage = maxDiscount;
+		item.minValue = Mathf.Max(minValue, 0) * 100 / 40;
+		item.maxValue = Mathf.Max(maxValue, item.minValue) * 100 / 40;
+		item.weight = weight <= 9 ? (weight + 100) / 100f : (weight + 99) / 100f; // (weight - 1) / 100f + 1f // TODO: to correct
 
 		if (price != -1)
 			Items.RegisterShopItem(item, price);
