@@ -41,6 +41,8 @@ Available settings in the config:
     - Allows you to endlessly reload your shotgun
   - SkipReloadAnimation (default = false)
     - Skips reload animation
+  - DisableFriendlyFire (default = false)
+    - Turns off friendly fire
 - Shell
   - Price (default: 50, disable = -1)
     - Cost of a cartridge in the store
@@ -96,6 +98,8 @@ Available settings in the config:
     - Позволяет бесконечно перезаряжать дробовик
   - SkipReloadAnimation (по умолчанию = false)
     - Пропускает анимацию перезарядки
+  - DisableFriendlyFire (по умолчанию = false)
+    - Отключает огонь по своим
 - Shell
   - Price (по умолчанию: 50, отключить = -1)
     - Стоимость патрона в магазине
@@ -120,7 +124,17 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Changelog
 
-## [1.3.0] - 15.02.2024 | Current version
+## [1.4.0] - 17.02.2024 | Current version
+
+- The structure of the configuration file has been changed once again
+- Fixed issue [#15](https://github.com/Hypick122/BetterShotgun/issues/15) (it seems)
+- Fixed an issue where when one of the players reloads a shotgun, ShowAmmoCount would incorrectly display the number of ammo for all shotguns
+- Added LethalCompany_InputUtils to dependencies to improve the key binding change function
+- New feature added:
+  - DisableFriendlyFire (default = false)
+    - Turns off friendly fire
+
+## [1.3.0] - 15.02.2024
 
 - Changed the priority of ShootGunPrefix (by [@JuanCalle1606](https://github.com/JuanCalle1606) in [#13](https://github.com/Hypick122/BetterShotgun/pull/13)), thereby making it more compatible with mods like HexiBetterShotgun
 - Changed the calculation of MinValueScrap and MaxValueScrap (now using the formula value * 100 / 40)

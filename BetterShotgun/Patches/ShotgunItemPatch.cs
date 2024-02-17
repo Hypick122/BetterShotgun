@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine;
 
@@ -7,6 +9,7 @@ namespace Hypick.Patches;
 [HarmonyPatch(typeof(ShotgunItem))]
 internal class ShotgunItemPatch
 {
+	# region MisfireOff
 	[HarmonyPatch("Update")]
 	[HarmonyPrefix]
 	static void Update(ShotgunItem __instance)
@@ -17,7 +20,9 @@ internal class ShotgunItemPatch
 			__instance.misfireTimer = float.MaxValue;
 		}
 	}
+	# endregion
 
+	# region InfiniteAmmo
 	[HarmonyPatch("ItemActivate")]
 	[HarmonyPrefix]
 	static void ItemActivate(ShotgunItem __instance)
@@ -25,7 +30,9 @@ internal class ShotgunItemPatch
 		if (Plugin.Config.InfiniteAmmo)
 			__instance.shellsLoaded = int.MaxValue;
 	}
+	# endregion
 
+	# region ShowAmmoCount
 	[HarmonyPatch("SetControlTipsForItem")]
 	[HarmonyPrefix]
 	static void SetControlTipsForItem(ShotgunItem __instance)
@@ -37,7 +44,8 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	static void SetSafetyControlTip(ShotgunItem __instance)
 	{
-		HUDManager.Instance.ChangeControlTip(2, GetCustomTooltip(__instance));
+		if (__instance.IsOwner)
+			HUDManager.Instance.ChangeControlTip(2, GetCustomTooltip(__instance));
 	}
 
 	[HarmonyPatch("ReloadGunEffectsClientRpc")]
@@ -49,22 +57,23 @@ internal class ShotgunItemPatch
 			__instance.SetSafetyControlTip();
 	}
 
-	[HarmonyPatch("ItemInteractLeftRight")]
-	[HarmonyPrefix]
-	static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
+	private static string GetCustomTooltip(ShotgunItem item)
 	{
-		if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
-			return false;
+		string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
+		string keybind = Plugin.Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "");
 
-		if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
+		if (Plugin.Config.ShowAmmoCount)
 		{
-			__instance.StartReloadGun();
-			return false;
+			string maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
+			string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
+			return $"{newToolTips} ({ammoInfo}): [{keybind}]";
 		}
-
-		return true;
+		else
+			return $"{newToolTips}: [{keybind}]";
 	}
+	# endregion
 
+	# region ReloadNoLimit
 	[HarmonyPatch("ShootGun")]
 	[HarmonyPrefix]
 	[HarmonyPriority(Priority.High)]
@@ -89,6 +98,48 @@ internal class ShotgunItemPatch
 		return false;
 	}
 
+	# endregion
+
+	# region DisableFriendlyFire
+	[HarmonyPatch("ShootGun")]
+	static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+	{
+		bool found = false;
+		foreach (var instruction in instructions)
+		{
+			if (Plugin.Config.DisableFriendlyFire && !found && instruction.ToString().Contains("playerHeldBy"))
+			{
+				found = true;
+				yield return new CodeInstruction(OpCodes.Ldarg_0, null);
+				yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ShotgunItemPatch), nameof(CheckFriendly), null, null));
+				yield return new CodeInstruction(OpCodes.Stloc_0, null);
+			}
+			yield return instruction;
+		}
+	}
+
+	private static bool CheckFriendly(ShotgunItem __instance)
+	{
+		return __instance.playerHeldBy != null;
+	}
+	# endregion
+
+	[HarmonyPatch("ItemInteractLeftRight")]
+	[HarmonyPrefix]
+	static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
+	{
+		if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
+			return false;
+
+		if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
+		{
+			__instance.StartReloadGun();
+			return false;
+		}
+
+		return true;
+	}
+
 	[HarmonyPatch("StartReloadGun")]
 	[HarmonyPrefix]
 	static bool StartReloadGun(ShotgunItem __instance)
@@ -105,23 +156,10 @@ internal class ShotgunItemPatch
 		if (Plugin.Config.InfiniteAmmo && __instance.ReloadedGun())
 			return false;
 
+		if (!__instance.IsOwner)
+			return false;
+
 		return true;
-	}
-
-	private static string GetCustomTooltip(ShotgunItem item)
-	{
-		string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
-
-		if (Plugin.Config.ShowAmmoCount)
-		{
-			string maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
-			string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
-			return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind}]";
-		}
-		else
-		{
-			return $"{newToolTips}: [{Plugin.Config.ReloadKeybind}]";
-		}
 	}
 
 	private static IEnumerator CheckAmmoAnimation(ShotgunItem __instance)

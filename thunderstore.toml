@@ -15,6 +15,7 @@ containsNsfwContent = false
 # https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/
 BepInEx-BepInExPack = "5.4.2100"
 Evaisa-LethalLib = "0.14.2"
+Rune580-LethalCompany_InputUtils = "0.6.3"
 
 [build]
 icon = "icon.png"

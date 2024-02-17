@@ -7,7 +7,7 @@
 
         <AssemblyName>Hypick.BetterShotgun</AssemblyName>
         <Product>BetterShotgun</Product>
-        <Version>1.3.0</Version>
+        <Version>1.4.0</Version>
 
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
@@ -15,7 +15,7 @@
         <!-- Number of instances of the game to start to test the plugin -->
         <NumberOfClients>1</NumberOfClients>
         <!-- Delay between each start of the game in seconds -->
-        <DelayBetweenClientsInSeconds>15</DelayBetweenClientsInSeconds>
+        <DelayBetweenClientsInSeconds>5</DelayBetweenClientsInSeconds>
         <!-- To apply the correct delay between each instance, we need to add 1 to the delay because the first "echo" sent by the ping command is instant -->
         <PingDelay>$([MSBuild]::Add($(DelayBetweenClientsInSeconds), 1))</PingDelay>
         <!-- True to start the game when the plugin is built, false to only copy the plugin to the game's plugin directory -->
@@ -34,6 +34,12 @@
         <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
         <Reference Include="LethalLib">
             <HintPath>..\Lib\LethalLib.dll</HintPath>
+        </Reference>
+        <Reference Include="LethalCompanyInputUtils">
+            <HintPath>..\Lib\LethalCompanyInputUtils.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.InputSystem">
+            <HintPath>..\Lib\Unity.InputSystem.dll</HintPath>
         </Reference>
     </ItemGroup>
 
