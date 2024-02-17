@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/Hypick122/BetterShotgun/compare/v1.3.0...v1.4.0) (2024-02-17)
+
+
+### Features
+
+* add DisableFriendlyFire, fix a few bugs ([da0450e](https://github.com/Hypick122/BetterShotgun/commit/da0450e3193922dd1f726e2210ccea6538c32ed6))
+
 ## [1.3.0](https://github.com/Hypick122/BetterShotgun/compare/v1.2.0...v1.3.0) (2024-02-15)
 
 
