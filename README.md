@@ -124,7 +124,11 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Changelog
 
-## [1.4.0] - 17.02.2024 | Current version
+## [1.4.1] - 18.02.2024 | Current version
+
+- Fixed an issue with key bindings not changing ([#17](https://github.com/Hypick122/BetterShotgun/issues/17))
+
+## [1.4.0] - 17.02.2024
 
 - The structure of the configuration file has been changed once again
 - Fixed issue [#15](https://github.com/Hypick122/BetterShotgun/issues/15) (it seems)

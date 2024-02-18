@@ -54,8 +54,12 @@ public class Plugin : BaseUnityPlugin
 
 	public void SetupKeybindCallbacks()
 	{
+		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.ReloadKeybind}");
 		if (Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "") != "e")
+		{
+			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
 			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
+		}
 	}
 
 	public void OnReloadKeyPressed(InputAction.CallbackContext context)
@@ -101,9 +105,4 @@ public class Plugin : BaseUnityPlugin
 
 		Log.LogInfo($"Loaded {item}");
 	}
-}
-
-class Manager
-{
-	public static string ReloadShotgunKey = "<Keyboard>/r";
 }

@@ -11,6 +11,6 @@ public class Keybinds : LcInputActions
 
 	public override void CreateInputActions(in InputActionMapBuilder builder)
 	{
-		builder.NewActionBinding().WithActionId("Reload").WithActionType(InputActionType.Button).WithKbmPath(Manager.ReloadShotgunKey).WithBindingName("ReloadShotgunKey").Finish();
+		builder.NewActionBinding().WithActionId("Reload").WithActionType(InputActionType.Button).WithBindingName("ReloadShotgunKey").Finish(); // .WithKbmPath("<Keyboard>/r")
 	}
 }

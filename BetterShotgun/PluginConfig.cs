@@ -60,7 +60,6 @@ public class PluginConfig
 		MisfireOff = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(MisfireOff), true, "If set to true, disables shotgun misfire (vanilla = false)").Value;
 		InfiniteAmmo = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(InfiniteAmmo), false, "If set to true, the shotgun will have infinite ammo").Value;
 		ReloadKeybind = cfg.Bind<string>(Category.ShotgunTweaks, nameof(ReloadKeybind), "R", "Changes the reload key to the one you specify (vanilla = E)").Value;
-		Manager.ReloadShotgunKey = ReloadKeybind.ToLower().StartsWith("<keyboard>") ? ReloadKeybind : $"<Keyboard>/{ReloadKeybind}";
 		ShowAmmoCount = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(ShowAmmoCount), true, "If set to true, the number of cartridges in the shotgun will be displayed in the upper right text").Value;
 		AmmoCheckAnimation = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(AmmoCheckAnimation), true, "[BETA] Enables animation of checking cartridges in a shotgun on the reload key (Does not work with InfiniteAmmo = true)").Value;
 		ReloadNoLimit = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(ReloadNoLimit), false, "The shotgun can be loaded with an infinite number of cartridges").Value;

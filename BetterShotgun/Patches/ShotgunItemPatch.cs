@@ -60,7 +60,7 @@ internal class ShotgunItemPatch
 	private static string GetCustomTooltip(ShotgunItem item)
 	{
 		string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
-		string keybind = Plugin.Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "");
+		string keybind = Plugin.Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "").ToUpper();
 
 		if (Plugin.Config.ShowAmmoCount)
 		{
