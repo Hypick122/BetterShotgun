@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/Hypick122/BetterShotgun/compare/v1.4.0...v1.4.1) (2024-02-18)
+
+
+### Bug Fixes
+
+* key binding in ReloadKeybind ([3c50689](https://github.com/Hypick122/BetterShotgun/commit/3c5068922c52afc69805fb825c1aa276a731398d))
+
 ## [1.4.0](https://github.com/Hypick122/BetterShotgun/compare/v1.3.0...v1.4.0) (2024-02-17)
 
 
