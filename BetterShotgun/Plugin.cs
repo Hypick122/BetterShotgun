@@ -16,24 +16,26 @@ namespace Hypick;
 [BepInDependency("com.rune580.LethalCompanyInputUtils", BepInDependency.DependencyFlags.HardDependency)]
 public class Plugin : BaseUnityPlugin
 {
-	public static Plugin Instance { get; set; }
+	private static Plugin Instance { get; set; }
 
 	public static ManualLogSource Log => Instance.Logger;
 
-	public static new PluginConfig Config;
+	public new static PluginConfig Config;
 
 	private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-	internal static Keybinds InputActionsInstance = new Keybinds();
+	private static Keybinds InputActionsInstance = new Keybinds();
 
-	public List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>().Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
-	public Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
-	public Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
+	private List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>()
+		.Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
 
-	public static AnimationClip ShotgunInspectAnimation;
-	public static AudioClip ShotgunInspectSFX;
+	private Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
+	private Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
 
-	private bool isLoaded;
+	private static AnimationClip ShotgunInspectAnimation;
+	private static AudioClip ShotgunInspectSFX;
+
+	private bool _isLoaded;
 
 	public Plugin() => Instance = this;
 
@@ -55,7 +57,7 @@ public class Plugin : BaseUnityPlugin
 	public void SetupKeybindCallbacks()
 	{
 		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.ReloadKeybind}");
-		if (Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "") != "e")
+		if (Config.ReloadKeybind.Replace("<keyboard>/", "") != "e")
 		{
 			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
 			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
@@ -64,30 +66,26 @@ public class Plugin : BaseUnityPlugin
 
 	public void OnReloadKeyPressed(InputAction.CallbackContext context)
 	{
-		if (!context.performed)
-			return;
+		if (!context.performed) return;
 
-		if (GameNetworkManager.Instance != null && GameNetworkManager.Instance.localPlayerController != null)
-		{
-			PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
-			if (player.IsOwner)
-			{
-				GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
-				if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading)
-					item.StartReloadGun();
-			}
-		}
+		if (GameNetworkManager.Instance == null || GameNetworkManager.Instance.localPlayerController == null) return;
+
+		PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
+		if (!player.IsOwner) return;
+
+		GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
+		if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading) item.StartReloadGun();
 	}
 
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (!isLoaded && scene.name == "MainMenu")
-		{
-			isLoaded = true;
+		if (_isLoaded || scene.name != "MainMenu") return;
+		_isLoaded = true;
 
-			RegisterItem(Shotgun, Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue, Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
-			RegisterItem(ShotgunShell, Config.ShotgunShellMaxDiscount, Config.ShotgunShellMinValue, Config.ShotgunShellMaxValue, 0, Config.ShotgunShellPrice, Config.ShotgunShellRarity);
-		}
+		RegisterItem(Shotgun, Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
+			Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
+		RegisterItem(ShotgunShell, Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
+			Config.ShellPrice, Config.ShellRarity);
 	}
 
 	private void RegisterItem(Item item, int maxDiscount, int minValue, int maxValue, int weight, int price, int rarity)
@@ -95,13 +93,10 @@ public class Plugin : BaseUnityPlugin
 		item.highestSalePercentage = maxDiscount;
 		item.minValue = Mathf.Max(minValue, 0) * 100 / 40;
 		item.maxValue = Mathf.Max(maxValue, item.minValue) * 100 / 40;
-		item.weight = weight <= 9 ? (weight + 100) / 100f : (weight + 99) / 100f; // (weight - 1) / 100f + 1f // TODO: to correct
-		// item.weight = (weight / 100f) + 1f;
+		item.weight = weight <= 9 ? (weight + 100) / 100f : (weight + 99) / 100f; // TODO: to correct
 
-		if (price != -1)
-			Items.RegisterShopItem(item, price);
-		if (rarity != -1)
-			Items.RegisterScrap(item, rarity, Levels.LevelTypes.All);
+		if (price != -1) Items.RegisterShopItem(item, price);
+		if (rarity != -1) Items.RegisterScrap(item, rarity, Levels.LevelTypes.All);
 
 		Log.LogInfo($"Loaded {item}");
 	}

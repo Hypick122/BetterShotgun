@@ -24,7 +24,7 @@ outdir = "build"
 
 [[build.copy]]
 source = "BetterShotgun/bin/Hypick.BetterShotgun.dll"
-target = "BetterShotgun.dll"
+target = "BepInEx/plugins/BetterShotgun.dll"
 
 [[build.copy]]
 source = "CHANGELOG.md"

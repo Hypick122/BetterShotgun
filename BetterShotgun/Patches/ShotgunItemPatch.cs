@@ -10,9 +10,10 @@ namespace Hypick.Patches;
 internal class ShotgunItemPatch
 {
 	# region MisfireOff
+
 	[HarmonyPatch("Update")]
 	[HarmonyPrefix]
-	static void Update(ShotgunItem __instance)
+	public static void Update(ShotgunItem __instance)
 	{
 		if (Plugin.Config.MisfireOff && !__instance.safetyOn)
 		{
@@ -20,29 +21,33 @@ internal class ShotgunItemPatch
 			__instance.misfireTimer = float.MaxValue;
 		}
 	}
+
 	# endregion
 
 	# region InfiniteAmmo
+
 	[HarmonyPatch("ItemActivate")]
 	[HarmonyPrefix]
-	static void ItemActivate(ShotgunItem __instance)
+	public static void ItemActivate(ShotgunItem __instance)
 	{
 		if (Plugin.Config.InfiniteAmmo)
 			__instance.shellsLoaded = int.MaxValue;
 	}
+
 	# endregion
 
 	# region ShowAmmoCount
+
 	[HarmonyPatch("SetControlTipsForItem")]
 	[HarmonyPrefix]
-	static void SetControlTipsForItem(ShotgunItem __instance)
+	public static void SetControlTipsForItem(ShotgunItem __instance)
 	{
 		__instance.itemProperties.toolTips[1] = GetCustomTooltip(__instance);
 	}
 
 	[HarmonyPatch("SetSafetyControlTip")]
 	[HarmonyPrefix]
-	static void SetSafetyControlTip(ShotgunItem __instance)
+	public static void SetSafetyControlTip(ShotgunItem __instance)
 	{
 		if (__instance.IsOwner)
 			HUDManager.Instance.ChangeControlTip(2, GetCustomTooltip(__instance));
@@ -51,7 +56,7 @@ internal class ShotgunItemPatch
 	[HarmonyPatch("ReloadGunEffectsClientRpc")]
 	[HarmonyPatch("ShootGun")]
 	[HarmonyPostfix]
-	static void UpdateControlTipsForItem(ShotgunItem __instance)
+	public static void UpdateControlTipsForItem(ShotgunItem __instance)
 	{
 		if (Plugin.Config.ShowAmmoCount)
 			__instance.SetSafetyControlTip();
@@ -59,32 +64,32 @@ internal class ShotgunItemPatch
 
 	private static string GetCustomTooltip(ShotgunItem item)
 	{
-		string newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
-		string keybind = Plugin.Config.ReloadKeybind.ToLower().Replace("<keyboard>/", "").ToUpper();
+		var newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
 
-		if (Plugin.Config.ShowAmmoCount)
-		{
-			string maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
-			string ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
-			return $"{newToolTips} ({ammoInfo}): [{keybind}]";
-		}
-		else
-			return $"{newToolTips}: [{keybind}]";
+		if (!Plugin.Config.ShowAmmoCount)
+			return $"{newToolTips}: [{Plugin.Config.ReloadKeybind}]";
+
+		var maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
+		var ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
+
+		return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind}]";
 	}
+
 	# endregion
 
 	# region ReloadNoLimit
+
 	[HarmonyPatch("ShootGun")]
 	[HarmonyPrefix]
 	[HarmonyPriority(Priority.High)]
-	static void ShootGunPrefix(ShotgunItem __instance, out int __state)
+	public static void ShootGunPrefix(ShotgunItem __instance, out int __state)
 	{
 		__state = __instance.shellsLoaded;
 	}
 
 	[HarmonyPatch("ShootGun")]
 	[HarmonyPostfix]
-	static void ShootGunPostfix(ShotgunItem __instance, ref int __state)
+	public static void ShootGunPostfix(ShotgunItem __instance, ref int __state)
 	{
 		__instance.shellsLoaded = Mathf.Max(0, __state - 1);
 		__instance.SetSafetyControlTip();
@@ -92,7 +97,7 @@ internal class ShotgunItemPatch
 
 	[HarmonyPatch("reloadGunAnimation")]
 	[HarmonyPrefix]
-	static bool ReloadGunAnimation(ShotgunItem __instance, ref IEnumerator __result)
+	public static bool ReloadGunAnimation(ShotgunItem __instance, ref IEnumerator __result)
 	{
 		__result = ReloadGunAnimationCustom(__instance);
 		return false;
@@ -101,19 +106,22 @@ internal class ShotgunItemPatch
 	# endregion
 
 	# region DisableFriendlyFire
+
 	[HarmonyPatch("ShootGun")]
-	static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+	public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 	{
-		bool found = false;
+		var found = false;
 		foreach (var instruction in instructions)
 		{
 			if (Plugin.Config.DisableFriendlyFire && !found && instruction.ToString().Contains("playerHeldBy"))
 			{
 				found = true;
-				yield return new CodeInstruction(OpCodes.Ldarg_0, null);
-				yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(ShotgunItemPatch), nameof(CheckFriendly), null, null));
-				yield return new CodeInstruction(OpCodes.Stloc_0, null);
+				yield return new CodeInstruction(OpCodes.Ldarg_0);
+				yield return new CodeInstruction(OpCodes.Call,
+					AccessTools.Method(typeof(ShotgunItemPatch), nameof(CheckFriendly)));
+				yield return new CodeInstruction(OpCodes.Stloc_0);
 			}
+
 			yield return instruction;
 		}
 	}
@@ -122,29 +130,29 @@ internal class ShotgunItemPatch
 	{
 		return __instance.playerHeldBy != null;
 	}
+
 	# endregion
 
 	[HarmonyPatch("ItemInteractLeftRight")]
 	[HarmonyPrefix]
-	static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
+	public static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
 	{
 		if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
 			return false;
 
-		if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
-		{
-			__instance.StartReloadGun();
-			return false;
-		}
+		if (!Plugin.Config.ReloadNoLimit || !right || __instance.isReloading)
+			return true;
 
-		return true;
+		__instance.StartReloadGun();
+		return false;
 	}
 
 	[HarmonyPatch("StartReloadGun")]
 	[HarmonyPrefix]
-	static bool StartReloadGun(ShotgunItem __instance)
+	public static bool StartReloadGun(ShotgunItem __instance)
 	{
-		if ((Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun()) || (Plugin.Config.AmmoCheckAnimation && !Plugin.Config.ReloadNoLimit && !Plugin.Config.InfiniteAmmo && __instance.shellsLoaded >= 2))
+		if ((Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun()) || (Plugin.Config.AmmoCheckAnimation &&
+			    !Plugin.Config.ReloadNoLimit && !Plugin.Config.InfiniteAmmo && __instance.shellsLoaded >= 2))
 		{
 			if (__instance.gunCoroutine != null)
 				__instance.StopCoroutine(__instance.gunCoroutine);
@@ -156,10 +164,7 @@ internal class ShotgunItemPatch
 		if (Plugin.Config.InfiniteAmmo && __instance.ReloadedGun())
 			return false;
 
-		if (!__instance.IsOwner)
-			return false;
-
-		return true;
+		return __instance.IsOwner;
 	}
 
 	private static IEnumerator CheckAmmoAnimation(ShotgunItem __instance)
