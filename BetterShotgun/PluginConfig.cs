@@ -85,7 +85,7 @@ public class PluginConfig
 			"Changes the reload key to the one you specify (vanilla = E)").Value;
 		ShowAmmoCount = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(ShowAmmoCount), true,
 			"If set to true, the number of cartridges in the shotgun will be displayed in the upper right text").Value;
-		AmmoCheckAnimation = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(AmmoCheckAnimation), true,
+		AmmoCheckAnimation = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(AmmoCheckAnimation), false,
 				"[BETA] Enables animation of checking cartridges in a shotgun on the reload key (Does not work with InfiniteAmmo = true)")
 			.Value;
 		ReloadNoLimit = cfg.Bind<bool>(Category.ShotgunTweaks, nameof(ReloadNoLimit), false,

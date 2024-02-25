@@ -33,7 +33,7 @@ Available settings in the config:
     - Endless ammo
   - ShowAmmoCount (default = true)
     - The number of cartridges in the shotgun will be displayed at the top right
-  - **[BETA]** AmmoCheckAnimation (default = true)
+  - **[BETA]** AmmoCheckAnimation (default = false)
     - Adds ammo check animation to the reload button
   - ReloadKeybind (default = false, vanilla = E)
     - Changes the reload key to the one you set
@@ -90,7 +90,7 @@ Available settings in the config:
     - Бесконечные патроны
   - ShowAmmoCount (по умолчанию = true)
     - Справа сверху будет отображаться кол-во патронов в дробовике
-  - **[BETA]** AmmoCheckAnimation (по умолчанию = true)
+  - **[BETA]** AmmoCheckAnimation (по умолчанию = false)
     - Добавляет анимацию проверки патронов на кнопку перезарядки
   - ReloadKeybind (по умолчанию = false, ванилла = E)
     - Меняет клавишу перезарядки на установленную вами
@@ -114,6 +114,11 @@ Available settings in the config:
 
 </details>
 
+## Recommended Mods
+
+- NutcrackerFixes
+- LCAmmoCheck (this mod is better than the built-in AmmoCheckAnimation)
+
 ## Contributing
 
 If you have an idea for a mod or find a problem, you can open an [issue](https://github.com/Hypick122/BetterShotgun/issues) or [pull request](https://github.com/Hypick122/BetterShotgun/pulls) on Github.
@@ -122,73 +127,11 @@ If you have an idea for a mod or find a problem, you can open an [issue](https:/
 
 This project is licensed under the [MIT License](https://github.com/Hypick122/BetterShotgun?tab=MIT-1-ov-file).
 
-## Changelog
+## Latest version
 
-## [1.4.1] - 18.02.2024 | Current version
+### [1.4.2](https://github.com/Hypick122/BetterShotgun/compare/v1.4.1...v1.4.2) (2024-02-26)
 
-- Fixed an issue with key bindings not changing ([#17](https://github.com/Hypick122/BetterShotgun/issues/17))
+- AmmoCheckAnimation changed from "true" to "false" by default
+- Changed the name of shotgun ammo in the store from "Ammo" to "Shell"
+- Added more logging
 
-## [1.4.0] - 17.02.2024
-
-- The structure of the configuration file has been changed once again
-- Fixed issue [#15](https://github.com/Hypick122/BetterShotgun/issues/15) (it seems)
-- Fixed an issue where when one of the players reloads a shotgun, ShowAmmoCount would incorrectly display the number of ammo for all shotguns
-- Added LethalCompany_InputUtils to dependencies to improve the key binding change function
-- New feature added:
-  - DisableFriendlyFire (default = false)
-    - Turns off friendly fire
-
-## [1.3.0] - 15.02.2024
-
-- Changed the priority of ShootGunPrefix (by [@JuanCalle1606](https://github.com/JuanCalle1606) in [#13](https://github.com/Hypick122/BetterShotgun/pull/13)), thereby making it more compatible with mods like HexiBetterShotgun
-- Changed the calculation of MinValueScrap and MaxValueScrap (now using the formula value * 100 / 40)
-- The structure of the configuration file has been slightly changed
-- Added two new parameters:
-  - **[BETA]** Weight (default = 16) (shotgun only)
-    - Scrap weight
-  - MaxDiscount (default = 80, vanilla = 80)
-    - Maximum discount in the store
-
-## [1.2.0] - 14.02.2024
-
-- Finally fixed AmmoCheckAnimation (most likely :))
-- Removed the shotgun loading sound when viewing ammo
-- Added two new features:
-  - ReloadNoLimit
-    - Allows you to endlessly reload your shotgun
-  - SkipReloadAnimation
-    - Skips reload animation
-
-## [1.1.1] - 13.02.2024
-
-- Fixed an issue where AmmoCheckAnimation still worked even if it was disabled in the config ([#7](https://github.com/Hypick122/BetterShotgun/issues/7))
-- Fixed an issue where the shotgun would misfire when falling to the ground with MisfireOff enabled in the config ([#8](https://github.com/Hypick122/BetterShotgun/issues/8))
-
-## [1.1.0] - 12.02.2024
-
-- Added 5 new features:
-  - MisfireOff (default = true, vanilla = false)
-    - Disables misfire
-  - InfiniteAmmo (default = false)
-    - Endless ammo
-  - ShowAmmoCount (default = true)
-    - The number of cartridges in the shotgun will be displayed at the top right
-  - **[BETA]** AmmoCheckAnimation
-    - Enables animation of checking cartridges on the reload button
-  - ReloadKeybind
-    - Changes the reload key to the one you set
-
-## [1.0.3] - 29.01.2024
-
-- LethalLib 0.14.1 -> 0.14.2
-- Descriptions in the config have been corrected
-
-## [1.0.2] - 29.01.2024
-
-- LethalLib 0.13.2 -> 0.14.1
-- Minor changes to the code
-
-## [1.0.1] - 25.01.2024
-
-- The default parameters in the config have been slightly changed
-- Added parameters for the cost of scrap metal on the moons in the config

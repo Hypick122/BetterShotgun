@@ -67,12 +67,12 @@ internal class ShotgunItemPatch
 		var newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
 
 		if (!Plugin.Config.ShowAmmoCount)
-			return $"{newToolTips}: [{Plugin.Config.ReloadKeybind}]";
+			return $"{newToolTips}: [{Plugin.Config.ReloadKeybind.ToUpper()}]";
 
 		var maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
 		var ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
 
-		return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind}]";
+		return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind.ToUpper()}]";
 	}
 
 	# endregion

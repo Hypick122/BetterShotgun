@@ -13,7 +13,7 @@ namespace Hypick;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency(LethalLib.Plugin.ModGUID)]
-[BepInDependency("com.rune580.LethalCompanyInputUtils", BepInDependency.DependencyFlags.HardDependency)]
+[BepInDependency("com.rune580.LethalCompanyInputUtils")]
 public class Plugin : BaseUnityPlugin
 {
 	private static Plugin Instance { get; set; }
@@ -66,38 +66,51 @@ public class Plugin : BaseUnityPlugin
 
 	public void OnReloadKeyPressed(InputAction.CallbackContext context)
 	{
-		if (!context.performed) return;
-
-		if (GameNetworkManager.Instance == null || GameNetworkManager.Instance.localPlayerController == null) return;
+		if (!context.performed || GameNetworkManager.Instance == null || GameNetworkManager.Instance.localPlayerController == null)
+			return;
 
 		PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
-		if (!player.IsOwner) return;
+		if (!player.IsOwner)
+			return;
 
 		GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
-		if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading) item.StartReloadGun();
+		if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading)
+			item.StartReloadGun();
 	}
 
 	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (_isLoaded || scene.name != "MainMenu") return;
-		_isLoaded = true;
+		if (_isLoaded || scene.name != "MainMenu")
+			return;
 
-		RegisterItem(Shotgun, Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
+		_isLoaded = true;
+		RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
 			Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
-		RegisterItem(ShotgunShell, Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
+		RegisterItem(ShotgunShell, "Shell", Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
 			Config.ShellPrice, Config.ShellRarity);
 	}
 
-	private void RegisterItem(Item item, int maxDiscount, int minValue, int maxValue, int weight, int price, int rarity)
+	private static void RegisterItem(Item item, string name, int maxDiscount, int minValue, int maxValue, int weight,
+		int price, int rarity)
 	{
+		item.itemName = name;
 		item.highestSalePercentage = maxDiscount;
 		item.minValue = Mathf.Max(minValue, 0) * 100 / 40;
 		item.maxValue = Mathf.Max(maxValue, item.minValue) * 100 / 40;
 		item.weight = weight <= 9 ? (weight + 100) / 100f : (weight + 99) / 100f; // TODO: to correct
 
-		if (price != -1) Items.RegisterShopItem(item, price);
-		if (rarity != -1) Items.RegisterScrap(item, rarity, Levels.LevelTypes.All);
+		if (price != -1)
+		{
+			Items.RegisterShopItem(item, price);
+			Log.LogInfo($"{item.itemName} added to the store");
+		}
 
-		Log.LogInfo($"Loaded {item}");
+		if (rarity != -1)
+		{
+			Items.RegisterScrap(item, rarity, Levels.LevelTypes.All);
+			Log.LogInfo($"{item.itemName} added as scrap");
+		}
+
+		Log.LogInfo($"Loaded {item.itemName}");
 	}
 }

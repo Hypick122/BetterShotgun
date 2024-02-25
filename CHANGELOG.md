@@ -2,69 +2,106 @@
 
 ## [1.4.1](https://github.com/Hypick122/BetterShotgun/compare/v1.4.0...v1.4.1) (2024-02-18)
 
-
 ### Bug Fixes
 
-* key binding in ReloadKeybind ([3c50689](https://github.com/Hypick122/BetterShotgun/commit/3c5068922c52afc69805fb825c1aa276a731398d))
+* Fixed an issue with key bindings not changing ([#17](https://github.com/Hypick122/BetterShotgun/issues/17))
 
 ## [1.4.0](https://github.com/Hypick122/BetterShotgun/compare/v1.3.0...v1.4.0) (2024-02-17)
 
+### Miscellaneous Chores
+
+* The structure of the configuration file has been changed once again
+* Added LethalCompany_InputUtils to dependencies to improve the key binding change function
 
 ### Features
 
-* add DisableFriendlyFire, fix a few bugs ([da0450e](https://github.com/Hypick122/BetterShotgun/commit/da0450e3193922dd1f726e2210ccea6538c32ed6))
-
-## [1.3.0](https://github.com/Hypick122/BetterShotgun/compare/v1.2.0...v1.3.0) (2024-02-15)
-
-
-### Features
-
-* add new params: weight, discount ([d2f0939](https://github.com/Hypick122/BetterShotgun/commit/d2f0939758142ddcb00e9f2c676a5631fedddac8))
-
-## [1.2.0](https://github.com/Hypick122/BetterShotgun/compare/v1.1.1...v1.2.0) (2024-02-13)
-
-
-### Features
-
-* add 2 new features, fix AmmoCheckAnimation ([7b010c1](https://github.com/Hypick122/BetterShotgun/commit/7b010c18ae31d2b0c177c9bca170c6c4e6a27467))
-
-## [1.1.1](https://github.com/Hypick122/BetterShotgun/compare/v1.1.0...v1.1.1) (2024-02-13)
-
+* DisableFriendlyFire (default = false)
+    * Turns off friendly fire
 
 ### Bug Fixes
 
-* fix two problems ([d78ef12](https://github.com/Hypick122/BetterShotgun/commit/d78ef1249c18c95a8d66f1a4cb75b5acd51f388a))
+* Fixed issue [#15](https://github.com/Hypick122/BetterShotgun/issues/15) (it seems)
+* Fixed an issue where when one of the players reloads a shotgun, ShowAmmoCount would incorrectly display the number of
+  ammo for all shotguns
 
-## [1.1.0](https://github.com/Hypick122/BetterShotgun/compare/v1.0.3...v1.1.0) (2024-02-12)
+## [1.3.0](https://github.com/Hypick122/BetterShotgun/compare/v1.2.0...v1.3.0) (2024-02-15)
 
+### Miscellaneous Chores
+
+* Changed the priority of ShootGunPrefix (by [@JuanCalle1606](https://github.com/JuanCalle1606)
+  in [#13](https://github.com/Hypick122/BetterShotgun/pull/13)), thereby making it more compatible with mods like
+  HexiBetterShotgun
+* Changed the calculation of MinValueScrap and MaxValueScrap (now using the formula value * 100 / 40)
+* The structure of the configuration file has been slightly changed
 
 ### Features
 
-* add 5 new features ([acd8d3a](https://github.com/Hypick122/BetterShotgun/commit/acd8d3a1319e280b597023e2e69c3802aed67dfc))
+* **[BETA]** Weight (default = 16) (shotgun only)
+    * Scrap weight
+* MaxDiscount (default = 80, vanilla = 80)
+    * Maximum discount in the store
+
+## [1.2.0](https://github.com/Hypick122/BetterShotgun/compare/v1.1.1...v1.2.0) (2024-02-13)
+
+### Miscellaneous Chores
+
+* Finally fixed AmmoCheckAnimation (most likely :))
+* Removed the shotgun loading sound when viewing ammo
+
+### Features
+
+* ReloadNoLimit (default = false)
+    * Allows you to endlessly reload your shotgun
+* SkipReloadAnimation (default = false)
+    * Skips reload animation
+
+## [1.1.1](https://github.com/Hypick122/BetterShotgun/compare/v1.1.0...v1.1.1) (2024-02-13)
+
+### Bug Fixes ([d78ef12](https://github.com/Hypick122/BetterShotgun/commit/d78ef1249c18c95a8d66f1a4cb75b5acd51f388a))
+
+* Fixed an issue where AmmoCheckAnimation still worked even if it was disabled in the
+  config ([#7](https://github.com/Hypick122/BetterShotgun/issues/7))
+* Fixed an issue where the shotgun would misfire when falling to the ground with MisfireOff enabled in the
+  config ([#8](https://github.com/Hypick122/BetterShotgun/issues/8))
+
+## [1.1.0](https://github.com/Hypick122/BetterShotgun/compare/v1.0.3...v1.1.0) (2024-02-12)
+
+### Features
+
+* MisfireOff (default = true, vanilla = false)
+    * Disables misfire
+* InfiniteAmmo (default = false)
+    * Endless ammo
+* ShowAmmoCount (default = true)
+    * The number of cartridges in the shotgun will be displayed at the top right
+* **[BETA]** AmmoCheckAnimation
+    * Enables animation of checking cartridges on the reload button
+* ReloadKeybind
+    * Changes the reload key to the one you set
 
 ## [1.0.3](https://github.com/Hypick122/BetterShotgun/compare/v1.0.2...v1.0.3) (2024-01-29)
 
-
 ### Miscellaneous Chores
 
-* Update config ([4aa8e96](https://github.com/Hypick122/BetterShotgun/commit/4aa8e963dad6d76a60ccbbb1d0e1ab2d1b9d6a3e))
+* LethalLib 0.14.1 -> 0.14.2
+* Descriptions in the config have been corrected
 
 ## [1.0.2](https://github.com/Hypick122/BetterShotgun/compare/v1.0.1...v1.0.2) (2024-01-29)
 
-
 ### Miscellaneous Chores
 
-* Minor changes to the code ([f96f05b](https://github.com/Hypick122/BetterShotgun/commit/f96f05b9ceeccac01f6912f6731790605f55c507))
+* LethalLib 0.13.2 -> 0.14.1
+* Minor changes to the
+  code ([f96f05b](https://github.com/Hypick122/BetterShotgun/commit/f96f05b9ceeccac01f6912f6731790605f55c507))
 
 ## [1.0.1](https://github.com/Hypick122/BetterShotgun/compare/v1.0.0...v1.0.1) (2024-01-25)
 
-
 ### Miscellaneous Chores
 
-* 1.0.1 ([c773da7](https://github.com/Hypick122/BetterShotgun/commit/c773da7ca42634a7c95addc597cefcf157c21588))
+* The default parameters in the config have been slightly changed
+* Added parameters for the cost of scrap metal on the moons in the config
 
 ## 1.0.0 (2024-01-22)
-
 
 ### Miscellaneous Chores
 
