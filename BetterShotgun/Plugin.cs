@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
@@ -24,7 +25,7 @@ public class Plugin : BaseUnityPlugin
 
 	private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-	private static Keybinds InputActionsInstance = new Keybinds();
+	public static readonly Keybinds InputActionsInstance = new Keybinds();
 
 	private List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>()
 		.Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
@@ -45,7 +46,6 @@ public class Plugin : BaseUnityPlugin
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
 
-		Log.LogInfo($"Applying patches...");
 		_harmony.PatchAll();
 		Log.LogInfo($"Patches applied");
 
@@ -56,7 +56,15 @@ public class Plugin : BaseUnityPlugin
 
 	public void SetupKeybindCallbacks()
 	{
-		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.ReloadKeybind}");
+		var key = Config.ReloadKeybind;
+		if (Chainloader.PluginInfos.ContainsKey("FlipMods.ReservedItemSlotCore"))
+		{
+			key = "E";
+			Log.LogWarning("ReservedItemSlotCore detected, ReloadKeybind set to default value (E)");
+		}
+		
+		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{key}");
+		
 		if (Config.ReloadKeybind.Replace("<keyboard>/", "") != "e")
 		{
 			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
@@ -66,7 +74,8 @@ public class Plugin : BaseUnityPlugin
 
 	public void OnReloadKeyPressed(InputAction.CallbackContext context)
 	{
-		if (!context.performed || GameNetworkManager.Instance == null || GameNetworkManager.Instance.localPlayerController == null)
+		if (!context.performed || GameNetworkManager.Instance == null ||
+		    GameNetworkManager.Instance.localPlayerController == null)
 			return;
 
 		PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;

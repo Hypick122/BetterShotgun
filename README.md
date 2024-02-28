@@ -36,7 +36,7 @@ Available settings in the config:
   - **[BETA]** AmmoCheckAnimation (default = false)
     - Adds ammo check animation to the reload button
   - ReloadKeybind (default = false, vanilla = E)
-    - Changes the reload key to the one you set
+    - Changes the reload key to the one you set (incompatible with ReservedItemSlotCore)
   - ReloadNoLimit (default = false)
     - Allows you to endlessly reload your shotgun
   - SkipReloadAnimation (default = false)
@@ -93,7 +93,7 @@ Available settings in the config:
   - **[BETA]** AmmoCheckAnimation (по умолчанию = false)
     - Добавляет анимацию проверки патронов на кнопку перезарядки
   - ReloadKeybind (по умолчанию = false, ванилла = E)
-    - Меняет клавишу перезарядки на установленную вами
+    - Меняет клавишу перезарядки на установленную вами (несовместимо с ReservedItemSlotCore)
   - ReloadNoLimit (по умолчанию = false)
     - Позволяет бесконечно перезаряжать дробовик
   - SkipReloadAnimation (по умолчанию = false)
@@ -129,9 +129,7 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Latest version
 
-### [1.4.2](https://github.com/Hypick122/BetterShotgun/compare/v1.4.1...v1.4.2) (2024-02-26)
+### [1.4.3](https://github.com/Hypick122/BetterShotgun/compare/v1.4.1...v1.4.2) (2024-02-28)
 
-- AmmoCheckAnimation changed from "true" to "false" by default
-- Changed the name of shotgun ammo in the store from "Ammo" to "Shell"
-- Added more logging
+- Added check for the presence of ReservedItemSlotCore. If it is set, then ReloadKeybind is set to [E]
 

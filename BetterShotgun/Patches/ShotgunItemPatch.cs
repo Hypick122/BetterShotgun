@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Hypick.Patches;
 
@@ -67,12 +68,12 @@ internal class ShotgunItemPatch
 		var newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
 
 		if (!Plugin.Config.ShowAmmoCount)
-			return $"{newToolTips}: [{Plugin.Config.ReloadKeybind.ToUpper()}]";
+			return $"{newToolTips}: [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
 
 		var maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
 		var ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
 
-		return $"{newToolTips} ({ammoInfo}): [{Plugin.Config.ReloadKeybind.ToUpper()}]";
+		return $"{newToolTips} ({ammoInfo}): [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
 	}
 
 	# endregion
