@@ -25,7 +25,7 @@ public class Plugin : BaseUnityPlugin
 
 	private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
 
-	public static readonly Keybinds InputActionsInstance = new Keybinds();
+	public static readonly Keybinds InputActionsInstance = new();
 
 	private List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>()
 		.Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
@@ -79,12 +79,13 @@ public class Plugin : BaseUnityPlugin
 			return;
 
 		PlayerControllerB player = GameNetworkManager.Instance.localPlayerController;
-		if (!player.IsOwner)
-			return;
+		if (player.IsOwner)
+		{
+			GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
 
-		GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
-		if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading)
-			item.StartReloadGun();
+			if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading)
+				item.StartReloadGun();
+		}
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -93,7 +94,7 @@ public class Plugin : BaseUnityPlugin
 		{
 			_isLoaded = true;
 
-			var ammoName = Config.ShellName;
+			var ammoName = "Shell";
 			if (Chainloader.PluginInfos.ContainsKey("FlipMods.ReservedWeaponSlot"))
 			{
 				ammoName = "Ammo";
@@ -101,15 +102,16 @@ public class Plugin : BaseUnityPlugin
 					"ReservedWeaponSlot detected, the name of the cartridges changes from \"Shell\" to \"Ammo\"");
 			}
 
-			RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
-				Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
+			RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue,
+				Config.ShotgunMaxValue, Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
 			RegisterItem(ShotgunShell, ammoName, Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
 				Config.ShellPrice, Config.ShellRarity);
 		}
 	}
 
-	private static void RegisterItem(Item item, string name, int maxDiscount, int minValue, int maxValue, int weight,
-		int price, int rarity)
+	private static void RegisterItem(
+		Item item, string name, int maxDiscount, int minValue, int maxValue, float weight, int price, int rarity
+	)
 	{
 		item.itemName = name;
 		item.highestSalePercentage = maxDiscount;

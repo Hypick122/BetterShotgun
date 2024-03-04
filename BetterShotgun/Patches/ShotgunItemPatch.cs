@@ -141,11 +141,13 @@ internal class ShotgunItemPatch
 		if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
 			return false;
 
-		if (!Plugin.Config.ReloadNoLimit || !right || __instance.isReloading)
-			return true;
+		if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
+		{
+			__instance.StartReloadGun();
+			return false;
+		}
 
-		__instance.StartReloadGun();
-		return false;
+		return true;
 	}
 
 	[HarmonyPatch("StartReloadGun")]
