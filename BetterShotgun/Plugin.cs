@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 namespace Hypick;
 
-[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency(LethalLib.Plugin.ModGUID)]
 [BepInDependency("com.rune580.LethalCompanyInputUtils")]
 public class Plugin : BaseUnityPlugin
@@ -23,7 +23,7 @@ public class Plugin : BaseUnityPlugin
 
 	public new static PluginConfig Config;
 
-	private readonly Harmony _harmony = new(PluginInfo.PLUGIN_GUID);
+	private readonly Harmony _harmony = new(MyPluginInfo.PLUGIN_GUID);
 
 	public static readonly Keybinds InputActionsInstance = new();
 
@@ -51,7 +51,7 @@ public class Plugin : BaseUnityPlugin
 
 		SetupKeybindCallbacks();
 
-		Logger.LogInfo($"{PluginInfo.PLUGIN_GUID} is fully loaded!");
+		Logger.LogInfo($"{MyPluginInfo.PLUGIN_GUID} is fully loaded!");
 	}
 
 	public void SetupKeybindCallbacks()
