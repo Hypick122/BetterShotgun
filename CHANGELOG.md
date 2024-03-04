@@ -2,10 +2,10 @@
 
 ## [1.4.3](https://github.com/Hypick122/BetterShotgun/compare/v1.4.2...v1.4.3) (2024-02-28)
 
-
 ### Miscellaneous Chores
 
-* add check for ReservedItemSlotCore ([17f556a](https://github.com/Hypick122/BetterShotgun/commit/17f556aeebe41b15260742ddf32aec82cc2b97f5))
+* Added check for the presence of
+  ReservedItemSlotCore ([17f556a](https://github.com/Hypick122/BetterShotgun/commit/17f556aeebe41b15260742ddf32aec82cc2b97f5))
 
 ## [1.4.2](https://github.com/Hypick122/BetterShotgun/compare/v1.4.1...v1.4.2) (2024-02-25)
 

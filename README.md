@@ -3,114 +3,124 @@
 <details>
 <summary><strong>English</strong></summary>
 
-Should support custom moons (I haven't tested)
+The mod should support custom moons (I haven't tested it)
 
 ## Config
 
 All available mod settings can be found in the config ```Hypick.BetterShotgun.cfg```
 
-! If the Rarity parameter is enabled, the item will appear in gifts
+**Parameters marked as ``[Sync]`` are synchronized with the host**
+
+! If the ```Rarity``` parameter is enabled, the item will appear in gifts
+
+```MinValueScrap```, ```MaxValueScrap```: In the game, the value is scaled down, so it is calculated using the formula
+value * 100 / 40
 
 Available settings in the config:
 
-- Shotgun
-  - Price (default = 700, disable = -1)
-    - Cost of a shotgun in the store
-  - MinValueScrap (default = 40) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
-    - Minimum scrap cost
-  - MaxValueScrap (default = 70) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
-    - Maximum scrap cost
-  - Rarity (default = -1, disable = -1)
-    - Rarity of shotgun spawn on moons (higher = more often)
-  - **[BETA]** Weight
-    - Scrap weight
-  - MaxDiscount (default = 80, vanilla = 80)
-    - Maximum discount in the store
-- Shotgun Tweaks
-  - MisfireOff (default = true, vanilla = false)
-    - Disables misfire
-  - InfiniteAmmo (default = false)
-    - Endless ammo
-  - ShowAmmoCount (default = true)
-    - The number of cartridges in the shotgun will be displayed at the top right
-  - **[BETA]** AmmoCheckAnimation (default = false)
-    - Adds ammo check animation to the reload button
-  - ReloadKeybind (default = false, vanilla = E)
-    - Changes the reload key to the one you set (incompatible with ReservedItemSlotCore)
-  - ReloadNoLimit (default = false)
-    - Allows you to endlessly reload your shotgun
-  - SkipReloadAnimation (default = false)
-    - Skips reload animation
-  - DisableFriendlyFire (default = false)
-    - Turns off friendly fire
-- Shell
-  - Price (default: 50, disable = -1)
-    - Cost of a cartridge in the store
-  - MinValueScrap (default = 15) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
-    - Minimum scrap cost
-  - MaxValueScrap (default = 25) (In the game, the value is scaled down, so it is calculated using the formula value * 100 / 40)
-    - Maximum scrap cost
-  - Rarity (default = 2, disable = -1)
-    - Rarity of the appearance of cartridges on moons (higher = more often)
-  - MaxDiscount (default = 80, vanilla = 80)
-    - Maximum discount in the store
+- **Shotgun**
+    - ```[Sync]``` **Price** (default = 700, disable = -1)
+        - The cost of a shotgun in the store
+    - ```[Sync]``` **MinValueScrap** (default = 40)
+        - Minimum scrap cost
+    - ```[Sync]``` **MaxValueScrap** (default = 70)
+        - Maximum scrap cost
+    - ```[Sync]``` **Rarity** (default = -1, disable = -1)
+        - The rarity of the appearance of a shotgun on the moons (higher = more often)
+    - ```[Sync]``` ```[BETA]``` **Weight** (default = 16)
+        - Scrap weight
+    - ```[Sync]``` **MaxDiscount** (default = 80, vanilla = 80)
+        - Maximum discount in the store
+- **Shotgun Tweaks**
+    - ```[Sync]``` **MisfireOff** (default = true, vanilla = false)
+        - Disables the misfire
+    - ```[Sync]``` **InfiniteAmmo** (default = false)
+        - Endless ammo
+    - **ShowAmmoCount** (default = true)
+        - The number of loaded ammo will be displayed in the tooltip
+    - ```[BETA]``` **AmmoCheckAnimation** (default = false)
+        - Adds ammo check animation to the reload button
+    - **ReloadKeybind** (default = false, vanilla = E)
+        - Changes the reload keybind to the one you set
+    - ```[Sync]``` **ReloadNoLimit** (default = false)
+        - Allows you to infinitely reload the shotgun
+    - ```[Sync]``` **SkipReloadAnimation** (default = false)
+        - Skips the reload animation
+    - ```[Sync]``` **DisableFriendlyFire** (default = false)
+        - Turns off friendly fire
+- **Shell**
+    - ```[Sync]``` **Price** (default: 50, disable = -1)
+        - The cost of the cartridge in the store
+    - ```[Sync]``` **MinValueScrap** (default = 15)
+        - Minimum scrap cost
+    - ```[Sync]``` **MaxValueScrap** (default = 25)
+        - Maximum scrap cost
+    - ```[Sync]``` **Rarity** (default = 2, disable = -1)
+        - The rarity of the appearance of cartridges on the moons (higher = more often)
+    - ```[Sync]``` **MaxDiscount** (default = 80, vanilla = 80)
+        - Maximum discount in the store
 
 </details>
 
 <details>
 <summary><strong>Русский</strong></summary>
 
-Должен поддерживать кастомные луны (я не тестировал)
+Мод должен поддерживать кастомные луны (я не тестировал)
 
 ## Конфиг
 
 Все доступные настройки мода можно найти в конфиге ```Hypick.BetterShotgun.cfg```
 
-! Если параметр Rarity включен, то предмет будет появляться еще в подарах
+**Параметры, помеченные как ```[Sync]```, синхронизируются с хостом**
+
+! Если параметр ```Rarity``` включен, то предмет будет появляться еще в подарах
+
+```MinValueScrap```, ```MaxValueScrap```: В игре значение лома масштабируется в меньшую сторону, поэтому высчитывается
+по формуле value * 100 / 40
 
 Доступные настройки в конфиге:
 
-- Shotgun
-  - Price (по умолчанию = 700, отключить = -1)
-    - Стоимость дробовика в магазине
-  - MinValueScrap (по умолчанию = 40) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
-    - Минимальная стоимость лома
-  - MaxValueScrap (по умолчанию = 70) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
-    - Максимальная стоимость лома
-  - Rarity (по умолчанию = -1, отключить = -1)
-    - Редкость появления дробовика на лунах (выше = чаще)
-  - **[BETA]** Weight (по умолчанию = 16)
-    - Вес лома
-  - MaxDiscount (по умолчанию = 80, ванилла = 80)
-    - Максимальная скидка в магазине
-- Shotgun Tweaks
-  - MisfireOff (по умолчанию = true, ванилла = false)
-    - Отключает осечку
-  - InfiniteAmmo (по умолчанию = false)
-    - Бесконечные патроны
-  - ShowAmmoCount (по умолчанию = true)
-    - Справа сверху будет отображаться кол-во патронов в дробовике
-  - **[BETA]** AmmoCheckAnimation (по умолчанию = false)
-    - Добавляет анимацию проверки патронов на кнопку перезарядки
-  - ReloadKeybind (по умолчанию = false, ванилла = E)
-    - Меняет клавишу перезарядки на установленную вами (несовместимо с ReservedItemSlotCore)
-  - ReloadNoLimit (по умолчанию = false)
-    - Позволяет бесконечно перезаряжать дробовик
-  - SkipReloadAnimation (по умолчанию = false)
-    - Пропускает анимацию перезарядки
-  - DisableFriendlyFire (по умолчанию = false)
-    - Отключает огонь по своим
-- Shell
-  - Price (по умолчанию: 50, отключить = -1)
-    - Стоимость патрона в магазине
-  - MinValueScrap (по умолчанию = 15) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
-    - Минимальная стоимость найденного на луне патрона
-  - MaxValueScrap (по умолчанию = 25) (В игре значение масштабируется в меньшую сторону, поэтому высчитывается по формуле value * 100 / 40)
-    - Максимальная стоимость найденного на луне патрона
-  - Rarity (по умолчанию = 2, отключить = -1)
-    - Редкость появления патронов на лунах (выше = чаще)
-  - MaxDiscount (default = 80, vanilla = 80)
-    - Maximum discount in the store
+- **Shotgun**
+    - ```[Sync]``` **Price** (по умолчанию = 700, отключить = -1)
+        - Стоимость дробовика в магазине
+    - ```[Sync]``` **MinValueScrap** (по умолчанию = 40)
+        - Минимальная стоимость лома
+    - ```[Sync]``` **MaxValueScrap** (по умолчанию = 70)
+        - Максимальная стоимость лома
+    - ```[Sync]``` **Rarity** (по умолчанию = -1, отключить = -1)
+        - Редкость появления дробовика на лунах (выше = чаще)
+    - ```[Sync]``` ```[BETA]``` **Weight** (по умолчанию = 16)
+        - Вес лома
+    - **MaxDiscount** (по умолчанию = 80, ванилла = 80)
+        - Максимальная скидка в магазине
+- **Shotgun Tweaks**
+    - ```[Sync]``` **MisfireOff** (по умолчанию = true, ванилла = false)
+        - Отключает осечку
+    - ```[Sync]``` **InfiniteAmmo** (по умолчанию = false)
+        - Бесконечные патроны
+    - **ShowAmmoCount** (по умолчанию = true)
+        - Во всплывающей подсказке будет отображаться количество заряженных патронов
+    - ```[BETA]``` **AmmoCheckAnimation** (по умолчанию = false)
+        - Добавляет анимацию проверки патронов на кнопку перезарядки
+    - **ReloadKeybind** (по умолчанию = false, ванилла = E)
+        - Меняет клавишу перезарядки на установленную вами
+    - ```[Sync]``` **ReloadNoLimit** (по умолчанию = false)
+        - Позволяет бесконечно перезаряжать дробовик
+    - ```[Sync]``` **SkipReloadAnimation** (по умолчанию = false)
+        - Пропускает анимацию перезарядки
+    - ```[Sync]``` **DisableFriendlyFire** (по умолчанию = false)
+        - Отключает огонь по своим
+- **Shell**
+    - ```[Sync]``` **Price** (по умолчанию: 50, отключить = -1)
+        - Стоимость патрона в магазине
+    - ```[Sync]``` **MinValueScrap** (по умолчанию = 15)
+        - Минимальная стоимость найденного на луне патрона
+    - ```[Sync]``` **MaxValueScrap** (по умолчанию = 25)
+        - Максимальная стоимость найденного на луне патрона
+    - ```[Sync]``` **Rarity** (по умолчанию = 2, отключить = -1)
+        - Редкость появления патронов на лунах (выше = чаще)
+    - ```[Sync]``` **MaxDiscount** (default = 80, vanilla = 80)
+        - Максимальная скидка в магазине
 
 </details>
 
@@ -121,7 +131,9 @@ Available settings in the config:
 
 ## Contributing
 
-If you have an idea for a mod or find a problem, you can open an [issue](https://github.com/Hypick122/BetterShotgun/issues) or [pull request](https://github.com/Hypick122/BetterShotgun/pulls) on Github.
+If you have an idea for a mod or find a problem, you can open
+an [issue](https://github.com/Hypick122/BetterShotgun/issues)
+or [pull request](https://github.com/Hypick122/BetterShotgun/pulls) on Github.
 
 ## License
 
@@ -129,7 +141,10 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Latest version
 
-### [1.4.3](https://github.com/Hypick122/BetterShotgun/compare/v1.4.1...v1.4.2) (2024-02-28)
+### [1.4.4](https://github.com/Hypick122/BetterShotgun/compare/v1.4.3...v1.4.4) (2024-03-04)
 
-- Added check for the presence of ReservedItemSlotCore. If it is set, then ReloadKeybind is set to [E]
-
+- Added configuration synchronization between clients and
+  host ([#28](https://github.com/Hypick122/BetterShotgun/issues/28))
+- Removed the check for ReservedItemSlotCore in ReloadKeybind
+- Fixed compatibility with ReservedWeaponSlot: the name of the cartridges automatically changes to "
+  Ammo" ([#22](https://github.com/Hypick122/BetterShotgun/issues/22))
