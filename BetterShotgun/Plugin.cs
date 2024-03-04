@@ -56,16 +56,9 @@ public class Plugin : BaseUnityPlugin
 
 	public void SetupKeybindCallbacks()
 	{
-		var key = Config.ReloadKeybind;
-		if (Chainloader.PluginInfos.ContainsKey("FlipMods.ReservedItemSlotCore"))
-		{
-			key = "E";
-			Log.LogWarning("ReservedItemSlotCore detected, ReloadKeybind set to default value (E)");
-		}
-		
-		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{key}");
-		
-		if (Config.ReloadKeybind.Replace("<keyboard>/", "") != "e")
+		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.Default.ReloadKeybind}");
+
+		if (Config.Default.ReloadKeybind.Replace("<keyboard>/", "") != "e")
 		{
 			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
 			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
