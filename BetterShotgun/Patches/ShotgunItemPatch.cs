@@ -16,7 +16,7 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static void Update(ShotgunItem __instance)
 	{
-		if (Plugin.Config.MisfireOff && !__instance.safetyOn)
+		if (Config.Instance.MisfireOff && !__instance.safetyOn)
 		{
 			__instance.hasHitGroundWithSafetyOff = true;
 			__instance.misfireTimer = float.MaxValue;
@@ -31,7 +31,7 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static void ItemActivate(ShotgunItem __instance)
 	{
-		if (Plugin.Config.InfiniteAmmo)
+		if (Config.Instance.InfiniteAmmo)
 			__instance.shellsLoaded = int.MaxValue;
 	}
 
@@ -59,19 +59,19 @@ internal class ShotgunItemPatch
 	[HarmonyPostfix]
 	public static void UpdateControlTipsForItem(ShotgunItem __instance)
 	{
-		if (Plugin.Config.ShowAmmoCount)
+		if (Config.Default.ShowAmmoCount)
 			__instance.SetSafetyControlTip();
 	}
 
 	private static string GetCustomTooltip(ShotgunItem item)
 	{
-		var newToolTips = Plugin.Config.AmmoCheckAnimation ? "Reload / Check" : "Reload";
+		var newToolTips = Config.Default.AmmoCheckAnimation ? "Reload / Check" : "Reload";
 
-		if (!Plugin.Config.ShowAmmoCount)
+		if (!Config.Default.ShowAmmoCount)
 			return $"{newToolTips}: [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
 
-		var maxAmmo = Plugin.Config.ReloadNoLimit ? "∞" : "2";
-		var ammoInfo = Plugin.Config.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
+		var maxAmmo = Config.Instance.ReloadNoLimit ? "∞" : "2";
+		var ammoInfo = Config.Instance.InfiniteAmmo ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
 
 		return $"{newToolTips} ({ammoInfo}): [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
 	}
@@ -114,7 +114,7 @@ internal class ShotgunItemPatch
 		var found = false;
 		foreach (var instruction in instructions)
 		{
-			if (Plugin.Config.DisableFriendlyFire && !found && instruction.ToString().Contains("playerHeldBy"))
+			if (Config.Instance.DisableFriendlyFire && !found && instruction.ToString().Contains("playerHeldBy"))
 			{
 				found = true;
 				yield return new CodeInstruction(OpCodes.Ldarg_0);
@@ -138,10 +138,10 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
 	{
-		if (Plugin.Config.ReloadKeybind.ToLower() != "e" && right)
+		if (Config.Default.ReloadKeybind.ToLower() != "e" && right)
 			return false;
 
-		if (Plugin.Config.ReloadNoLimit && right && !__instance.isReloading)
+		if (Config.Instance.ReloadNoLimit && right && !__instance.isReloading)
 		{
 			__instance.StartReloadGun();
 			return false;
@@ -154,8 +154,8 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static bool StartReloadGun(ShotgunItem __instance)
 	{
-		if ((Plugin.Config.AmmoCheckAnimation && !__instance.ReloadedGun()) || (Plugin.Config.AmmoCheckAnimation &&
-			    !Plugin.Config.ReloadNoLimit && !Plugin.Config.InfiniteAmmo && __instance.shellsLoaded >= 2))
+		if ((Config.Default.AmmoCheckAnimation && !__instance.ReloadedGun()) || (Config.Default.AmmoCheckAnimation &&
+			    !Config.Instance.ReloadNoLimit && !Config.Instance.InfiniteAmmo && __instance.shellsLoaded >= 2))
 		{
 			if (__instance.gunCoroutine != null)
 				__instance.StopCoroutine(__instance.gunCoroutine);
@@ -164,7 +164,7 @@ internal class ShotgunItemPatch
 			return false;
 		}
 
-		if (Plugin.Config.InfiniteAmmo && __instance.ReloadedGun())
+		if (Config.Instance.InfiniteAmmo && __instance.ReloadedGun())
 			return false;
 
 		return __instance.IsOwner;
@@ -194,7 +194,7 @@ internal class ShotgunItemPatch
 
 	private static IEnumerator ReloadGunAnimationCustom(ShotgunItem __instance)
 	{
-		if (!Plugin.Config.SkipReloadAnimation)
+		if (!Config.Instance.SkipReloadAnimation)
 		{
 			__instance.isReloading = true;
 			if (__instance.shellsLoaded <= 0)
@@ -227,7 +227,7 @@ internal class ShotgunItemPatch
 			__instance.playerHeldBy.DestroyItemInSlotAndSync(__instance.ammoSlotToUse);
 			__instance.ammoSlotToUse = -1;
 
-			if (Plugin.Config.ReloadNoLimit)
+			if (Config.Instance.ReloadNoLimit)
 				__instance.shellsLoaded++;
 			else
 				__instance.shellsLoaded = Mathf.Clamp(__instance.shellsLoaded + 1, 0, 2);
@@ -255,7 +255,7 @@ internal class ShotgunItemPatch
 			__instance.playerHeldBy.DestroyItemInSlotAndSync(__instance.ammoSlotToUse);
 			__instance.ammoSlotToUse = -1;
 
-			if (Plugin.Config.ReloadNoLimit)
+			if (Config.Instance.ReloadNoLimit)
 				__instance.shellsLoaded++;
 			else
 				__instance.shellsLoaded = Mathf.Clamp(__instance.shellsLoaded + 1, 0, 2);

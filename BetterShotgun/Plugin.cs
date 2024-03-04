@@ -21,7 +21,7 @@ public class Plugin : BaseUnityPlugin
 
 	public static ManualLogSource Log => Instance.Logger;
 
-	public new static PluginConfig Config;
+	public new static Config Config;
 
 	private readonly Harmony _harmony = new(MyPluginInfo.PLUGIN_GUID);
 
@@ -42,7 +42,7 @@ public class Plugin : BaseUnityPlugin
 
 	private void Awake()
 	{
-		Config = new PluginConfig(base.Config);
+		Config = new Config(base.Config);
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -102,10 +102,12 @@ public class Plugin : BaseUnityPlugin
 					"ReservedWeaponSlot detected, the name of the cartridges changes from \"Shell\" to \"Ammo\"");
 			}
 
-			RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue,
-				Config.ShotgunMaxValue, Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
-			RegisterItem(ShotgunShell, ammoName, Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
-				Config.ShellPrice, Config.ShellRarity);
+			RegisterItem(Shotgun, "Shotgun", Config.Instance.ShotgunMaxDiscount, Config.Instance.ShotgunMinValue,
+				Config.Instance.ShotgunMaxValue, Config.Instance.ShotgunWeight, Config.Instance.ShotgunPrice,
+				Config.Instance.ShotgunRarity);
+			RegisterItem(ShotgunShell, ammoName, Config.Instance.ShellMaxDiscount, Config.Instance.ShellMinValue,
+				Config.Instance.ShellMaxValue, 0,
+				Config.Instance.ShellPrice, Config.Instance.ShellRarity);
 		}
 	}
 

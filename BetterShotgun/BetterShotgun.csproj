@@ -41,6 +41,9 @@
         <Reference Include="Unity.InputSystem">
             <HintPath>..\Lib\Unity.InputSystem.dll</HintPath>
         </Reference>
+        <Reference Include="Unity.Collections">
+            <HintPath>..\Lib\Unity.Collections.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <!-- https://github.com/EvaisaDev/UnityNetcodePatcher#usage-as-a-post-build-event -->
