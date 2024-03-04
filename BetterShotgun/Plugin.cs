@@ -87,16 +87,25 @@ public class Plugin : BaseUnityPlugin
 			item.StartReloadGun();
 	}
 
-	public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (_isLoaded || scene.name != "MainMenu")
-			return;
+		if (!_isLoaded && scene.name == "MainMenu")
+		{
+			_isLoaded = true;
 
-		_isLoaded = true;
-		RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
-			Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
-		RegisterItem(ShotgunShell, "Shell", Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
-			Config.ShellPrice, Config.ShellRarity);
+			var ammoName = Config.ShellName;
+			if (Chainloader.PluginInfos.ContainsKey("FlipMods.ReservedWeaponSlot"))
+			{
+				ammoName = "Ammo";
+				Log.LogWarning(
+					"ReservedWeaponSlot detected, the name of the cartridges changes from \"Shell\" to \"Ammo\"");
+			}
+
+			RegisterItem(Shotgun, "Shotgun", Config.ShotgunMaxDiscount, Config.ShotgunMinValue, Config.ShotgunMaxValue,
+				Config.ShotgunWeight, Config.ShotgunPrice, Config.ShotgunRarity);
+			RegisterItem(ShotgunShell, ammoName, Config.ShellMaxDiscount, Config.ShellMinValue, Config.ShellMaxValue, 0,
+				Config.ShellPrice, Config.ShellRarity);
+		}
 	}
 
 	private static void RegisterItem(Item item, string name, int maxDiscount, int minValue, int maxValue, int weight,
