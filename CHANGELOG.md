@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.4](https://github.com/Hypick122/BetterShotgun/compare/v1.4.3...v1.4.4) (2024-03-04)
+
+
+### Miscellaneous Chores
+
+* bump mod from 1.4.3 to 1.4.4 ([ece6097](https://github.com/Hypick122/BetterShotgun/commit/ece60972aca8b608f26b7e524b5f1f2d2681aac7))
+
 ## [1.4.3](https://github.com/Hypick122/BetterShotgun/compare/v1.4.2...v1.4.3) (2024-02-28)
 
 ### Miscellaneous Chores
