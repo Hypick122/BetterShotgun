@@ -58,7 +58,7 @@ public class Plugin : BaseUnityPlugin
 	{
 		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.Default.ReloadKeybind}");
 
-		if (Config.Default.ReloadKeybind.Replace("<keyboard>/", "") != "e")
+		if (Config.Default.ReloadKeybind.ToString().Replace("<keyboard>/", "") != "e")
 		{
 			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
 			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
