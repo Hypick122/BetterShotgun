@@ -15,6 +15,7 @@ namespace Hypick;
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency(LethalLib.Plugin.ModGUID)]
 [BepInDependency("com.rune580.LethalCompanyInputUtils")]
+[BepInDependency("com.sigurd.csync")]
 public class Plugin : BaseUnityPlugin
 {
 	private static Plugin Instance { get; set; }
