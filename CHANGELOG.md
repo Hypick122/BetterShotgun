@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.5](https://github.com/Hypick122/BetterShotgun/compare/v1.4.4...v1.4.5) (2024-03-13)
+
+
+### Bug Fixes
+
+* fix a crash ([#30](https://github.com/Hypick122/BetterShotgun/issues/30)) ([f18f53f](https://github.com/Hypick122/BetterShotgun/commit/f18f53f8f0cdd491bb338a5738531fd38bd32895))
+
+
+### Miscellaneous Chores
+
+* prepare to 1.4.5 ([a7de8f2](https://github.com/Hypick122/BetterShotgun/commit/a7de8f214a3cf9472c258c1a57278fbad46f352c))
+* replace config synchronization with CSync ([142cf52](https://github.com/Hypick122/BetterShotgun/commit/142cf5224ac6fef035b497af79ab4a1b6cf27fb3))
+
 ## [1.4.4](https://github.com/Hypick122/BetterShotgun/compare/v1.4.3...v1.4.4) (2024-03-04)
 
 ### Miscellaneous Chores
