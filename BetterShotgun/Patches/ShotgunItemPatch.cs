@@ -138,7 +138,7 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static bool ItemInteractLeftRight(ShotgunItem __instance, bool right)
 	{
-		if (Config.Default.ReloadKeybind.ToLower() != "e" && right)
+		if (Config.Default.ReloadKeybind.ToString().ToLower() != "e" && right)
 			return false;
 
 		if (Config.Instance.ReloadNoLimit && right && !__instance.isReloading)

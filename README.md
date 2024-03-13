@@ -141,10 +141,7 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Latest version
 
-### [1.4.4](https://github.com/Hypick122/BetterShotgun/compare/v1.4.3...v1.4.4) (2024-03-04)
+### [1.4.5](https://github.com/Hypick122/BetterShotgun/compare/v1.4.4...v1.4.5) (2024-03-13)
 
-- Added configuration synchronization between clients and
-  host ([#28](https://github.com/Hypick122/BetterShotgun/issues/28))
-- Removed the check for ReservedItemSlotCore in ReloadKeybind
-- Fixed compatibility with ReservedWeaponSlot: the name of the cartridges automatically changes to "
-  Ammo" ([#22](https://github.com/Hypick122/BetterShotgun/issues/22))
+* Fixed crash due to ReloadKeybind (sort of) ([#30](https://github.com/Hypick122/BetterShotgun/issues/30))
+* Synchronization has been replaced with [CSync](https://thunderstore.io/c/lethal-company/p/Sigurd/CSync/), since the last synchronization did not work

@@ -2,10 +2,14 @@
 
 ## [1.4.4](https://github.com/Hypick122/BetterShotgun/compare/v1.4.3...v1.4.4) (2024-03-04)
 
-
 ### Miscellaneous Chores
 
-* bump mod from 1.4.3 to 1.4.4 ([ece6097](https://github.com/Hypick122/BetterShotgun/commit/ece60972aca8b608f26b7e524b5f1f2d2681aac7))
+* Added configuration synchronization between clients and
+  host ([#28](https://github.com/Hypick122/BetterShotgun/issues/28)) ([12a50d4](https://github.com/Hypick122/BetterShotgun/commit/12a50d4f7fb639f98f3f2e7385e23bb9cf3fdc20))
+* Removed the check for ReservedItemSlotCore in
+  ReloadKeybind ([b292bae](https://github.com/Hypick122/BetterShotgun/commit/b292baec7c2d9a4af49291259327c5d38eeb627f))
+* Fixed compatibility with ReservedWeaponSlot: the name of the cartridges automatically changes to "
+  Ammo" ([#22](https://github.com/Hypick122/BetterShotgun/issues/22)) ([6a6d347](https://github.com/Hypick122/BetterShotgun/commit/6a6d347868522c8eb4e392ea6f313645b95aa0db))
 
 ## [1.4.3](https://github.com/Hypick122/BetterShotgun/compare/v1.4.2...v1.4.3) (2024-02-28)
 
