@@ -13,7 +13,7 @@ public static class Category
 }
 
 [DataContract]
-public class Config : SyncedConfig<Config>
+public class SyncConfig : SyncedConfig<SyncConfig>
 {
 	# region Shotgun
 
@@ -49,7 +49,7 @@ public class Config : SyncedConfig<Config>
 
 	# endregion
 
-	public Config(ConfigFile cfg) : base(MyPluginInfo.PLUGIN_GUID)
+	public SyncConfig(ConfigFile cfg) : base(MyPluginInfo.PLUGIN_GUID)
 	{
 		ConfigManager.Register(this);
 

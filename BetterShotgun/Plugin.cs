@@ -22,7 +22,7 @@ public class Plugin : BaseUnityPlugin
 
 	public static ManualLogSource Log => Instance.Logger;
 
-	public new static Config Config;
+	public static SyncConfig SyncConfig;
 
 	private readonly Harmony _harmony = new(MyPluginInfo.PLUGIN_GUID);
 
@@ -43,7 +43,7 @@ public class Plugin : BaseUnityPlugin
 
 	private void Awake()
 	{
-		Config = new Config(base.Config);
+		SyncConfig = new SyncConfig(Config);
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -57,9 +57,9 @@ public class Plugin : BaseUnityPlugin
 
 	public void SetupKeybindCallbacks()
 	{
-		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{Config.Default.ReloadKeybind}");
+		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{SyncConfig.Default.ReloadKeybind.Value}");
 
-		if (Config.Default.ReloadKeybind.ToString().Replace("<keyboard>/", "") != "e")
+		if (SyncConfig.Default.ReloadKeybind.Value.Replace("<keyboard>/", "").ToLower() != "e")
 		{
 			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
 			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
@@ -96,12 +96,13 @@ public class Plugin : BaseUnityPlugin
 					"ReservedWeaponSlot detected, the name of the cartridges changes from \"Shell\" to \"Ammo\"");
 			}
 
-			RegisterItem(Shotgun, "Shotgun", Config.Instance.ShotgunMaxDiscount, Config.Instance.ShotgunMinValue,
-				Config.Instance.ShotgunMaxValue, Config.Instance.ShotgunWeight, Config.Instance.ShotgunPrice,
-				Config.Instance.ShotgunRarity);
-			RegisterItem(ShotgunShell, ammoName, Config.Instance.ShellMaxDiscount, Config.Instance.ShellMinValue,
-				Config.Instance.ShellMaxValue, 0,
-				Config.Instance.ShellPrice, Config.Instance.ShellRarity);
+			RegisterItem(Shotgun, "Shotgun", SyncConfig.Instance.ShotgunMaxDiscount.Value,
+				SyncConfig.Instance.ShotgunMinValue.Value, SyncConfig.Instance.ShotgunMaxValue.Value,
+				SyncConfig.Instance.ShotgunWeight.Value, SyncConfig.Instance.ShotgunPrice.Value,
+				SyncConfig.Instance.ShotgunRarity.Value);
+			RegisterItem(ShotgunShell, ammoName, SyncConfig.Instance.ShellMaxDiscount.Value,
+				SyncConfig.Instance.ShellMinValue.Value, SyncConfig.Instance.ShellMaxValue.Value, 0,
+				SyncConfig.Instance.ShellPrice.Value, SyncConfig.Instance.ShellRarity.Value);
 		}
 	}
 
