@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.4.6](https://github.com/Hypick122/BetterShotgun/compare/v1.4.5...v1.4.6) (2024-03-16)
+
+
+### Bug Fixes
+
+* fix getting data from the config ([45bd1da](https://github.com/Hypick122/BetterShotgun/commit/45bd1da736bfd421411c732d19698b497d80ee82))
+
+
+### Miscellaneous Chores
+
+* prepare to v1.4.6 ([92939f5](https://github.com/Hypick122/BetterShotgun/commit/92939f5ed8f0d48737f8b9ca8b4203d38fe9873c))
+* update SetupKeybindCallbacks ([#30](https://github.com/Hypick122/BetterShotgun/issues/30)) ([8bedb4f](https://github.com/Hypick122/BetterShotgun/commit/8bedb4f49641d7893963dfeed4539be1e8826dfb))
+
 ## [1.4.5](https://github.com/Hypick122/BetterShotgun/compare/v1.4.4...v1.4.5) (2024-03-13)
 
 ### Bug Fixes
