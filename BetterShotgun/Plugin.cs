@@ -57,12 +57,20 @@ public class Plugin : BaseUnityPlugin
 
 	public void SetupKeybindCallbacks()
 	{
-		InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{SyncConfig.Default.ReloadKeybind.Value}");
-
-		if (SyncConfig.Default.ReloadKeybind.Value.Replace("<keyboard>/", "").ToLower() != "e")
+		try
 		{
-			Log.LogInfo($"Start ReloadKeybind with key {InputActionsInstance.ReloadKey.GetBindingDisplayString()}");
-			InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
+			if (SyncConfig.Default.ReloadKeybind.Value.ToLower() != "e")
+			{
+				InputActionsInstance.ReloadKey.AddBinding($"<keyboard>/{SyncConfig.Default.ReloadKeybind.Value}");
+				InputActionsInstance.ReloadKey.performed += OnReloadKeyPressed;
+				Log.LogInfo(
+					$"ReloadKeybind is started using the {InputActionsInstance.ReloadKey.GetBindingDisplayString()} key");
+			}
+		}
+		catch (Exception e)
+		{
+			Log.LogError("An error occurred while binding ReloadKeybind");
+			Log.LogError(e);
 		}
 	}
 
