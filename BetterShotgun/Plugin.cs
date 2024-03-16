@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BepInEx;
 using BepInEx.Bootstrap;
@@ -24,18 +25,13 @@ public class Plugin : BaseUnityPlugin
 
 	public static SyncConfig SyncConfig;
 
-	private readonly Harmony _harmony = new(MyPluginInfo.PLUGIN_GUID);
+	private readonly Harmony _patcher = new(MyPluginInfo.PLUGIN_GUID);
 
 	public static readonly Keybinds InputActionsInstance = new();
 
-	private List<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>()
-		.Concat(FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.InstanceID)).ToList();
-
-	private Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
-	private Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
-
-	private static AnimationClip ShotgunInspectAnimation;
-	private static AudioClip ShotgunInspectSFX;
+	private static IEnumerable<Item> AllItems => Resources.FindObjectsOfTypeAll<Item>().ToList();
+	private static Item Shotgun => AllItems.FirstOrDefault(item => item.name == "Shotgun");
+	private static Item ShotgunShell => AllItems.FirstOrDefault(item => item.name == "GunAmmo");
 
 	private bool _isLoaded;
 
@@ -47,7 +43,7 @@ public class Plugin : BaseUnityPlugin
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
 
-		_harmony.PatchAll();
+		_patcher.PatchAll();
 		Log.LogInfo($"Patches applied");
 
 		SetupKeybindCallbacks();
