@@ -4,7 +4,6 @@ using System.Reflection.Emit;
 using GameNetcodeStuff;
 using HarmonyLib;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Hypick.Patches;
 
@@ -44,7 +43,7 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static void SetControlTipsForItem(ShotgunItem __instance)
 	{
-		__instance.itemProperties.toolTips[1] = GetCustomTooltip(__instance);
+		__instance.itemProperties.toolTips[1] = Utils.GetCustomTooltip(__instance);
 	}
 
 	[HarmonyPatch("SetSafetyControlTip")]
@@ -52,7 +51,7 @@ internal class ShotgunItemPatch
 	public static void SetSafetyControlTip(ShotgunItem __instance)
 	{
 		if (__instance.IsOwner)
-			HUDManager.Instance.ChangeControlTip(2, GetCustomTooltip(__instance));
+			HUDManager.Instance.ChangeControlTip(2, Utils.GetCustomTooltip(__instance));
 	}
 
 	[HarmonyPatch("ReloadGunEffectsClientRpc")]
@@ -62,19 +61,6 @@ internal class ShotgunItemPatch
 	{
 		if (SyncConfig.Default.ShowAmmoCount.Value)
 			__instance.SetSafetyControlTip();
-	}
-
-	private static string GetCustomTooltip(ShotgunItem item)
-	{
-		var newToolTips = SyncConfig.Default.AmmoCheckAnimation.Value ? "Reload / Check" : "Reload";
-
-		if (!SyncConfig.Default.ShowAmmoCount.Value)
-			return $"{newToolTips}: [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
-
-		var maxAmmo = SyncConfig.Instance.ReloadNoLimit.Value ? "∞" : "2";
-		var ammoInfo = SyncConfig.Instance.InfiniteAmmo.Value ? "∞" : $"{item.shellsLoaded}/{maxAmmo}";
-
-		return $"{newToolTips} ({ammoInfo}): [{Plugin.InputActionsInstance.ReloadKey.GetBindingDisplayString()}]";
 	}
 
 	# endregion
@@ -120,17 +106,12 @@ internal class ShotgunItemPatch
 				found = true;
 				yield return new CodeInstruction(OpCodes.Ldarg_0);
 				yield return new CodeInstruction(OpCodes.Call,
-					AccessTools.Method(typeof(ShotgunItemPatch), nameof(CheckFriendly)));
+					AccessTools.Method(typeof(ShotgunItemPatch), nameof(Utils.CheckFriendly)));
 				yield return new CodeInstruction(OpCodes.Stloc_0);
 			}
 
 			yield return instruction;
 		}
-	}
-
-	private static bool CheckFriendly(ShotgunItem __instance)
-	{
-		return __instance.playerHeldBy != null;
 	}
 
 	# endregion
