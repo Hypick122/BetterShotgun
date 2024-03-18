@@ -82,7 +82,10 @@ public class Plugin : BaseUnityPlugin
 			GrabbableObject currentItem = player.ItemSlots[player.currentItemSlot];
 
 			if (currentItem != null && currentItem is ShotgunItem item && !item.isReloading)
+			{
+				Utils.CheckInfiniteAmmo(item);
 				item.StartReloadGun();
+			}
 		}
 	}
 

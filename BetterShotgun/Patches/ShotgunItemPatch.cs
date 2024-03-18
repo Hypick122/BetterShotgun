@@ -31,8 +31,7 @@ internal class ShotgunItemPatch
 	[HarmonyPrefix]
 	public static void ItemActivate(ShotgunItem __instance)
 	{
-		if (SyncConfig.Instance.InfiniteAmmo.Value)
-			__instance.shellsLoaded = int.MaxValue;
+		Utils.CheckInfiniteAmmo(__instance);
 	}
 
 	# endregion

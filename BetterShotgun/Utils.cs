@@ -7,7 +7,7 @@ public class Utils
 	public static void CheckInfiniteAmmo(ShotgunItem __instance)
 	{
 		if (SyncConfig.Instance.InfiniteAmmo.Value)
-			__instance.shellsLoaded = int.MaxValue;
+			__instance.shellsLoaded = 3;
 	}
 
 	public static bool CheckFriendly(ShotgunItem __instance)
