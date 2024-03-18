@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using GameNetcodeStuff;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -170,6 +171,22 @@ internal class ShotgunItemPatch
 		return __instance.IsOwner;
 	}
 
+	# region AmmoCheckAnimation
+
+	[HarmonyPatch("StopUsingGun")]
+	[HarmonyPrefix]
+	public static bool StopUsingGunPrefix(ShotgunItem __instance)
+	{
+		PlayerControllerB player = __instance.playerHeldBy ?? __instance.previousPlayerHeldBy;
+		if (SyncConfig.Default.AmmoCheckAnimation.Value && player != null)
+		{
+			player.playerBodyAnimator.speed = 1f;
+			__instance.gunAudio.time = 0f;
+		}
+
+		return true;
+	}
+
 	private static IEnumerator CheckAmmoAnimation(ShotgunItem __instance)
 	{
 		__instance.isReloading = true;
@@ -179,18 +196,34 @@ internal class ShotgunItemPatch
 
 		yield return new WaitForSeconds(0.3f);
 
-		// __instance.gunAudio.PlayOneShot(__instance.gunReloadSFX);
+		__instance.gunAudio.clip = __instance.gunReloadSFX;
+		__instance.gunAudio.Play();
 		__instance.gunAnimator.SetBool("Reloading", true);
-		__instance.ReloadGunEffectsServerRpc();
+		// __instance.ReloadGunEffectsServerRpc();
 
-		yield return new WaitForSeconds(2.35f);
+		yield return new WaitForSeconds(0.45f);
 
-		// __instance.gunAudio.PlayOneShot(__instance.gunReloadFinishSFX);
-		__instance.gunAnimator.SetBool("Reloading", false);
+		__instance.gunAudio.Stop();
+		__instance.playerHeldBy.playerBodyAnimator.speed = 0.2f;
+		__instance.gunAudio.time = 0.7f;
+		__instance.gunAudio.Play();
+
+		yield return new WaitForSeconds(0.95f);
+
+		__instance.playerHeldBy.playerBodyAnimator.speed = 0.6f;
 		__instance.playerHeldBy.playerBodyAnimator.SetBool("ReloadShotgun", false);
+		__instance.gunAnimator.SetBool("Reloading", false);
+
+		yield return new WaitForSeconds(0.3f);
+
+		__instance.gunAudio.time = 0f;
+		__instance.gunAudio.Stop();
+		__instance.playerHeldBy.playerBodyAnimator.speed = 1f;
 		__instance.isReloading = false;
 		__instance.ReloadGunEffectsServerRpc(start: false);
 	}
+	
+	# endregion
 
 	private static IEnumerator ReloadGunAnimationCustom(ShotgunItem __instance)
 	{
