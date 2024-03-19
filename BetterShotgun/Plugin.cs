@@ -95,19 +95,11 @@ public class Plugin : BaseUnityPlugin
 		{
 			_isLoaded = true;
 
-			var ammoName = "Shell";
-			if (Chainloader.PluginInfos.ContainsKey("FlipMods.ReservedWeaponSlot"))
-			{
-				ammoName = "Ammo";
-				Log.LogWarning(
-					"ReservedWeaponSlot detected, the name of the cartridges changes from \"Shell\" to \"Ammo\"");
-			}
-
 			RegisterItem(Shotgun, "Shotgun", SyncConfig.Instance.ShotgunMaxDiscount.Value,
 				SyncConfig.Instance.ShotgunMinValue.Value, SyncConfig.Instance.ShotgunMaxValue.Value,
 				SyncConfig.Instance.ShotgunWeight.Value, SyncConfig.Instance.ShotgunPrice.Value,
 				SyncConfig.Instance.ShotgunRarity.Value);
-			RegisterItem(ShotgunShell, ammoName, SyncConfig.Instance.ShellMaxDiscount.Value,
+			RegisterItem(ShotgunShell, "Shells", SyncConfig.Instance.ShellMaxDiscount.Value,
 				SyncConfig.Instance.ShellMinValue.Value, SyncConfig.Instance.ShellMaxValue.Value, 0,
 				SyncConfig.Instance.ShellPrice.Value, SyncConfig.Instance.ShellRarity.Value);
 		}
