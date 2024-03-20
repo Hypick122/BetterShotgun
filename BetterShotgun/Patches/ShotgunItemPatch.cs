@@ -100,7 +100,8 @@ internal class ShotgunItemPatch
 		var found = false;
 		foreach (var instruction in instructions)
 		{
-			if (SyncConfig.Instance.DisableFriendlyFire.Value && !found && instruction.ToString().Contains("playerHeldBy"))
+			if (SyncConfig.Instance.DisableFriendlyFire.Value && !found &&
+			    instruction.ToString().Contains("playerHeldBy"))
 			{
 				found = true;
 				yield return new CodeInstruction(OpCodes.Ldarg_0);
@@ -202,7 +203,7 @@ internal class ShotgunItemPatch
 		__instance.isReloading = false;
 		__instance.ReloadGunEffectsServerRpc(start: false);
 	}
-	
+
 	# endregion
 
 	private static IEnumerator ReloadGunAnimationCustom(ShotgunItem __instance)

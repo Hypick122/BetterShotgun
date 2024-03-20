@@ -131,7 +131,6 @@ Available settings in the config:
 ## Recommended Mods
 
 * NutcrackerFixes
-* LCAmmoCheck (this mod is better than the built-in AmmoCheckAnimation)
 
 ## Contributing
 
@@ -145,9 +144,10 @@ This project is licensed under the [MIT License](https://github.com/Hypick122/Be
 
 ## Latest version
 
-### [1.4.6](https://github.com/Hypick122/BetterShotgun/compare/v1.4.5...v1.4.6) (2024-03-16)
+### [1.4.7](https://github.com/Hypick122/BetterShotgun/compare/v1.4.6...v1.4.7) (2024-03-20)
 
-* Fixed a problem with extracting values from the config ([45bd1da](https://github.com/Hypick122/BetterShotgun/commit/45bd1da736bfd421411c732d19698b497d80ee82))
-* Changed the setup of the ReloadKeybind key and added an error exception ([8bedb4f](https://github.com/Hypick122/BetterShotgun/commit/8bedb4f49641d7893963dfeed4539be1e8826dfb))
-* Bump LethalLib from 1.4.2 to 1.4.3
-* Bump LethalCompany_InputUtils from 0.6.3 to 0.7.1
+* Improved animation checking shells (actually LCAmmoCheck_OLD).
+* InfiniteAmmo ([#35](https://github.com/Hypick122/BetterShotgun/issues/35)):
+  * Changed the number of shells from 2147483647 to 3 so that the shotgun has two rounds if InfiniteAmmo mode is disabled.
+  * Now, when checking the shells in the shotgun from the very beginning, it will be filled with two shells, not one.
+* The ReservedWeaponSlot check has been removed and the name of the shells has been replaced with "Shells".
