@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.7](https://github.com/Hypick122/BetterShotgun/compare/v1.4.6...v1.4.7) (2024-03-20)
+
+
+### Bug Fixes
+
+* change compatibility with ReservedWeaponSlot ([#38](https://github.com/Hypick122/BetterShotgun/issues/38)) ([98efc50](https://github.com/Hypick122/BetterShotgun/commit/98efc50ffc04cefa7631cd55ffed7ed862185245))
+
+
+### Miscellaneous Chores
+
+* improve AmmoCheckAnimation ([abec62f](https://github.com/Hypick122/BetterShotgun/commit/abec62fc66f18e9c4269559aa51b5307d1d395cc))
+* improve InfiniteAmmo ([#35](https://github.com/Hypick122/BetterShotgun/issues/35)) ([d9be920](https://github.com/Hypick122/BetterShotgun/commit/d9be920be0368b71320ba8afd185102201f2a6b8))
+* prepare to 1.4.7 ([8066a03](https://github.com/Hypick122/BetterShotgun/commit/8066a03c663865be42ac05bdc69967473d1089f2))
+
 ## [1.4.6](https://github.com/Hypick122/BetterShotgun/compare/v1.4.5...v1.4.6) (2024-03-16)
 
 ### Bug Fixes
